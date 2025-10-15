@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  ollama:
+    build: .
+    container_name: ollama_server
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    environment:
+      # Cho phép đa luồng
+      - OLLAMA_NUM_PARALLEL=4
+      - OLLAMA_MAX_QUEUE=100
+
+      # Cho phép truy cập từ bên ngoài (0.0.0.0)
+      - OLLAMA_HOST=0.0.0.0
