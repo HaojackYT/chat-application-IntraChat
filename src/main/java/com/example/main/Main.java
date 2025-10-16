@@ -42,11 +42,8 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        border.setBackground(new java.awt.Color(229, 229, 229));
-
         background.setBackground(new java.awt.Color(255, 255, 255));
 
-        title.setBackground(new java.awt.Color(229, 229, 229));
         title.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 titleMouseDragged(evt);
@@ -135,7 +132,7 @@ public class Main extends javax.swing.JFrame {
         );
         borderLayout.setVerticalGroup(
             borderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 724, Short.MAX_VALUE)
         );
 
         getContentPane().add(border, java.awt.BorderLayout.CENTER);
