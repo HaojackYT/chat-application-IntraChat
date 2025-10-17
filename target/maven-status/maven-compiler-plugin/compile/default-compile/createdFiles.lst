@@ -1,5 +1,6 @@
 com\example\component\ChatBottom.class
 com\example\main\Main$4.class
+com\example\swing\Line.class
 com\example\component\ChatLeft.class
 com\example\form\MenuLeft.class
 com\example\swing\ImageAvatar.class
@@ -17,12 +18,14 @@ com\example\form\MenuRight.class
 com\example\swing\ScrollBar.class
 com\example\form\MenuLeft$3.class
 com\example\component\ItemPeople$1.class
+com\example\component\ChatLeftProfile.class
 com\example\component\ChatBody.class
 com\example\main\Main.class
 com\example\form\Home.class
 com\example\swing\JIMSendTextPane$WarpColumnFactory.class
 com\example\component\MenuButton.class
 com\example\swing\ComponentResizer.class
+com\example\component\ChatDate.class
 com\example\swing\JIMSendTextPane$WarpLabelView.class
 com\example\swing\ModernScrollBarUI.class
 com\example\component\ChatRight.class

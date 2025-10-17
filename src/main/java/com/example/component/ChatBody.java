@@ -11,9 +11,11 @@ public class ChatBody extends javax.swing.JPanel {
         init();
         // Test data:
         addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.");
-        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.");
+        addDate("16/10/2025");
+        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu");
+        addDate("Today");
         addItemRight("Hello\nwewewewe\newewewew");
-        addItemLeft("Hello\nwewewewe\newewewew");
+        addItemLeft("Hello\nwewewewe\newewewew", "Hieu");
     }
 
     private void init() {
@@ -22,10 +24,11 @@ public class ChatBody extends javax.swing.JPanel {
         sp.getVerticalScrollBar().setBackground(Color.WHITE);
     }
 
-    public void addItemLeft(String text) {
-        ChatLeft item = new ChatLeft();
+    public void addItemLeft(String text, String user) {
+        ChatLeftProfile item = new ChatLeftProfile();
         item.setText(text);
-        body.add(item, "wrap, w ::80%");
+        item.setUserProfile(user);
+        body.add(item, "wrap, w 100::80%");
         body.repaint();
         body.revalidate();
     }
@@ -33,11 +36,19 @@ public class ChatBody extends javax.swing.JPanel {
     public void addItemRight(String text) {
         ChatRight item = new ChatRight();
         item.setText(text);
-        body.add(item, "wrap, al right, w ::80%");
+        body.add(item, "wrap, al right, w 100::80%");
         body.repaint();
         body.revalidate();
     }
-
+    
+    public void addDate(String date) {
+        ChatDate item = new ChatDate();
+        item.setDate(date);
+        body.add(item, "wrap, al center");
+        body.repaint();
+        body.revalidate();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
