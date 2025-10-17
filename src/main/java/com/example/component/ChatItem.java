@@ -1,12 +1,19 @@
 package com.example.component;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.border.EmptyBorder;
 
 public class ChatItem extends javax.swing.JLayeredPane {
 
+    private JLabel label;
+    
     public ChatItem() {
         initComponents();
         txt.setEditable(false);
@@ -18,6 +25,29 @@ public class ChatItem extends javax.swing.JLayeredPane {
         txt.setText(text);
     }
     
+    public void setTime(String time) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        layer.setBorder(new EmptyBorder(0, 5, 10, 5));
+        label = new JLabel(time);
+        label.setForeground(new Color(110, 110, 110));
+        label.setHorizontalTextPosition(JLabel.LEFT);
+        layer.add(label);
+        add(layer);
+    }
+    
+    public void sendSuccess() {
+        if (label != null) {
+            label.setIcon(new ImageIcon(getClass().getResource("/icon/tick.png")));
+        }
+    }
+    
+    public void seen() {
+        if (label != null) {
+            label.setIcon(new ImageIcon(getClass().getResource("/icon/double_tick.png")));
+        }
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
@@ -26,7 +56,7 @@ public class ChatItem extends javax.swing.JLayeredPane {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
         super.paintComponent(g);
     }
-        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +70,7 @@ public class ChatItem extends javax.swing.JLayeredPane {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        txt.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        txt.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 5, 10));
         txt.setSelectionColor(new java.awt.Color(94, 190, 255));
         add(txt);
     }// </editor-fold>//GEN-END:initComponents

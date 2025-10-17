@@ -11,6 +11,9 @@ public class ChatRight extends javax.swing.JLayeredPane {
     
     public void setText(String text) {
         txt.setText(text);
+        // Test data:
+        txt.setTime("10:35 PM");
+        txt.seen();
     }
     
     /**

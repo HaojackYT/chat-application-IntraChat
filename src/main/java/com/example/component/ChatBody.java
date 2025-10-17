@@ -11,9 +11,9 @@ public class ChatBody extends javax.swing.JPanel {
         init();
         // Test data:
         addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.");
-        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.");
-        addItemLeft("Hello\nwewewewe\newewewew");
+        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.");
         addItemRight("Hello\nwewewewe\newewewew");
+        addItemLeft("Hello\nwewewewe\newewewew");
     }
 
     private void init() {
