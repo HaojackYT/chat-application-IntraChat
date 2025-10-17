@@ -110,7 +110,7 @@ public class MenuLeft extends javax.swing.JPanel {
         menuList.setLayout(menuListLayout);
         menuListLayout.setHorizontalGroup(
             menuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 188, Short.MAX_VALUE)
+            .addGap(0, 189, Short.MAX_VALUE)
         );
         menuListLayout.setVerticalGroup(
             menuListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +126,7 @@ public class MenuLeft extends javax.swing.JPanel {
             .addComponent(menu)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(sp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
