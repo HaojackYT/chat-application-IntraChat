@@ -14,14 +14,25 @@ public class ChatLeftProfile extends javax.swing.JLayeredPane {
         txt.setUserProfile(user);
     }
     
-    public void setText(String text) {
-        txt.setText(text);
-        // Test data:
-        txt.setTime("10:30 PM");
-    }
-    
     public void setImageProfile(Icon image) {
         iaimage.setImage(image);
+    }
+    
+    public void setText(String text) {
+        if (txt.equals("")) {
+            txt.hideText();
+        } else {
+            txt.setText(text);
+        }
+    }
+    
+    public void setImage(Icon... images) {
+        txt.setImage(false, images);
+    }
+    
+    public void setTime() {
+        // Test data:
+        txt.setTime("10:30 PM");
     }
     
     /**

@@ -2,6 +2,8 @@ package com.example.component;
 
 import com.example.swing.ScrollBar;
 import java.awt.Color;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import net.miginfocom.swing.MigLayout;
 
 public class ChatBody extends javax.swing.JPanel {
@@ -10,12 +12,12 @@ public class ChatBody extends javax.swing.JPanel {
         initComponents();
         init();
         // Test data:
-        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.");
+        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/pic.jpg")));
         addDate("16/10/2025");
-        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu");
+        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/pic.jpg")));
         addDate("Today");
-        addItemRight("Hello\nwewewewe\newewewew");
-        addItemLeft("Hello\nwewewewe\newewewew", "Hieu");
+        addItemRight("Hello\nwewewewe\newewewew", new ImageIcon(getClass().getResource("/icon/pic.jpg")));
+        addItemLeft("", "Hieu", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/avatar.png")));
     }
 
     private void init() {
@@ -24,18 +26,22 @@ public class ChatBody extends javax.swing.JPanel {
         sp.getVerticalScrollBar().setBackground(Color.WHITE);
     }
 
-    public void addItemLeft(String text, String user) {
+    public void addItemLeft(String text, String user, Icon... images) {
         ChatLeftProfile item = new ChatLeftProfile();
         item.setText(text);
-        item.setUserProfile(user);
+        item.setImage(images);
+        item.setTime();
+         item.setUserProfile(user);
         body.add(item, "wrap, w 100::80%");
         body.repaint();
         body.revalidate();
+        
     }
 
-    public void addItemRight(String text) {
+    public void addItemRight(String text, Icon... images) {
         ChatRight item = new ChatRight();
         item.setText(text);
+        item.setImage(images);
         body.add(item, "wrap, al right, w 100::80%");
         body.repaint();
         body.revalidate();

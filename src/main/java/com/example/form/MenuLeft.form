@@ -113,9 +113,6 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JLayeredPane" name="menuList">
-          <Properties>
-            <Property name="opaque" type="boolean" value="true"/>
-          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">

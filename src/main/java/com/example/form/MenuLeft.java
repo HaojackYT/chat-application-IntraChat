@@ -104,8 +104,6 @@ public class MenuLeft extends javax.swing.JPanel {
         sp.setBorder(null);
         sp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        menuList.setOpaque(true);
-
         javax.swing.GroupLayout menuListLayout = new javax.swing.GroupLayout(menuList);
         menuList.setLayout(menuListLayout);
         menuListLayout.setHorizontalGroup(

@@ -1,6 +1,7 @@
 package com.example.component;
 
 import java.awt.Color;
+import javax.swing.Icon;
 
 public class ChatRight extends javax.swing.JLayeredPane {
 
@@ -10,10 +11,21 @@ public class ChatRight extends javax.swing.JLayeredPane {
     }
     
     public void setText(String text) {
-        txt.setText(text);
-        // Test data:
-        txt.setTime("10:35 PM");
+        if (txt.equals("")) {
+            txt.hideText();
+        } else {
+            txt.setText(text);
+        }
         txt.seen();
+    }
+    
+    public void setImage(Icon... images) {
+        txt.setImage(true, images);
+    }
+    
+    public void setTime() {
+        // Test data:
+        txt.setTime("10:30 PM");
     }
     
     /**

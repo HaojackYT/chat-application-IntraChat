@@ -10,6 +10,7 @@ com\example\component\ItemPeople.class
 com\example\form\MenuLeft$1.class
 com\example\main\Main$1.class
 com\example\form\Chat.class
+com\example\swing\PictureBox.class
 com\example\main\Main$3.class
 com\example\form\MenuLeft$2.class
 com\example\component\ChatItem.class
@@ -20,6 +21,7 @@ com\example\form\MenuLeft$3.class
 com\example\component\ItemPeople$1.class
 com\example\component\ChatLeftProfile.class
 com\example\component\ChatBody.class
+com\example\component\ChatImage.class
 com\example\main\Main.class
 com\example\form\Home.class
 com\example\swing\JIMSendTextPane$WarpColumnFactory.class
