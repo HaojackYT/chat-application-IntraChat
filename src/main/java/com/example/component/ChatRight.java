@@ -11,7 +11,8 @@ public class ChatRight extends javax.swing.JLayeredPane {
     }
     
     public void setText(String text) {
-        if (txt.equals("")) {
+        // Hide the text component when the provided text is empty/null
+        if (text == null || text.trim().isEmpty()) {
             txt.hideText();
         } else {
             txt.setText(text);

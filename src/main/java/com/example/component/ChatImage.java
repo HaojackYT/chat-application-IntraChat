@@ -1,10 +1,14 @@
 package com.example.component;
 
+import com.example.event.PublicEvent;
 import com.example.swing.PictureBox;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.Icon;
+import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 
 public class ChatImage extends javax.swing.JLayeredPane {
@@ -16,14 +20,33 @@ public class ChatImage extends javax.swing.JLayeredPane {
 
     public void addImage(Icon... images) {
         for (Icon image : images) {
-            PictureBox picture = new PictureBox();
-            picture.setPreferredSize(getAutoSize(image, 200, 200));
-            picture.setImage(image);
-            add(picture, "wrap");
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.setPreferredSize(getAutoSize(image, 200, 200));
+            pictureBox.setImage(image);
+            addEvent(pictureBox, image);
+            add(pictureBox, "wrap");
         }
+    }
+    
+    private void addEvent(Component component, Icon image) {
+        component.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        component.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    PublicEvent.getInstance().getEventImageView().viewImage(image);
+                }
+            }
+        });
     }
 
     private Dimension getAutoSize(Icon image, int w, int h) {
+        if (w > image.getIconWidth()) {
+            w = image.getIconWidth();
+        }
+        if (h > image.getIconHeight()) {
+            h = image.getIconHeight();
+        }
         int iw = image.getIconWidth();
         int ih = image.getIconHeight();
         double xScale = (double) w / iw;

@@ -19,7 +19,9 @@ public class ChatLeftProfile extends javax.swing.JLayeredPane {
     }
     
     public void setText(String text) {
-        if (txt.equals("")) {
+        // Hide the text component when the provided text is empty/null to avoid
+        // leaving vertical space between the username and the images
+        if (text == null || text.trim().isEmpty()) {
             txt.hideText();
         } else {
             txt.setText(text);

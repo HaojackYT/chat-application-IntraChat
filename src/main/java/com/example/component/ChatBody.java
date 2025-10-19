@@ -12,12 +12,12 @@ public class ChatBody extends javax.swing.JPanel {
         initComponents();
         init();
         // Test data:
-        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/pic.jpg")));
+        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
         addDate("16/10/2025");
-        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/pic.jpg")));
+        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
         addDate("Today");
-        addItemRight("Hello\nwewewewe\newewewew", new ImageIcon(getClass().getResource("/icon/pic.jpg")));
-        addItemLeft("", "Hieu", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/avatar.png")));
+        addItemRight("Hello\nwewewewe\newewewew", new ImageIcon(getClass().getResource("/icon/transparent-cat.png")));
+        addItemLeft("", "Hieu", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/2face-cat.png")));
     }
 
     private void init() {
@@ -31,7 +31,7 @@ public class ChatBody extends javax.swing.JPanel {
         item.setText(text);
         item.setImage(images);
         item.setTime();
-         item.setUserProfile(user);
+        item.setUserProfile(user);
         body.add(item, "wrap, w 100::80%");
         body.repaint();
         body.revalidate();

@@ -1,7 +1,9 @@
 com\example\component\ChatBottom.class
+com\example\event\PublicEvent.class
 com\example\main\Main$4.class
 com\example\swing\Line.class
 com\example\component\ChatLeft.class
+com\example\component\ChatImage$1.class
 com\example\form\MenuLeft.class
 com\example\swing\ImageAvatar.class
 com\example\swing\JIMSendTextPane$WarpEditorKit.class
@@ -14,8 +16,11 @@ com\example\swing\PictureBox.class
 com\example\main\Main$3.class
 com\example\form\MenuLeft$2.class
 com\example\component\ChatItem.class
+com\example\form\ViewImage$1.class
+com\example\form\ViewImage.class
 com\example\main\Main$2.class
 com\example\form\MenuRight.class
+com\example\main\Main$6.class
 com\example\swing\ScrollBar.class
 com\example\form\MenuLeft$3.class
 com\example\component\ItemPeople$1.class
@@ -26,9 +31,11 @@ com\example\main\Main.class
 com\example\form\Home.class
 com\example\swing\JIMSendTextPane$WarpColumnFactory.class
 com\example\component\MenuButton.class
+com\example\form\ViewImage$2.class
 com\example\swing\ComponentResizer.class
 com\example\component\ChatDate.class
 com\example\swing\JIMSendTextPane$WarpLabelView.class
+com\example\event\EventImageView.class
 com\example\swing\ModernScrollBarUI.class
 com\example\component\ChatRight.class
 com\example\main\Main$5.class
