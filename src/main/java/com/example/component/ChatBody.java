@@ -22,6 +22,8 @@ public class ChatBody extends javax.swing.JPanel {
         addItemLeft("Hello\nwewewewe\newewewew", "Hieu", img);
         addItemRight("Hello\nwewewewe\newewewew", new ImageIcon(getClass().getResource("/icon/transparent-cat.png")));
         addItemLeft("", "Hieu", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/2face-cat.png")));
+        addItemFile("My research", "Hieu", "research.pdf", "100 MB");
+        addItemFileRight("", "E1.rar", "20 MB");
     }
 
     private void init() {
@@ -51,11 +53,31 @@ public class ChatBody extends javax.swing.JPanel {
         body.repaint();
         body.revalidate();
     }
+    
+    public void addItemFile(String text, String user, String fileName, String fileSize) {
+        ChatLeftProfile item = new ChatLeftProfile();
+        item.setText(text);
+        item.setFile(fileName, fileSize);
+        item.setTime();
+        item.setUserProfile(user);
+        body.add(item, "wrap, w 100::80%");
+        body.repaint();
+        body.revalidate();
+    }
 
     public void addItemRight(String text, Icon... images) {
         ChatRight item = new ChatRight();
         item.setText(text);
         item.setImage(images);
+        body.add(item, "wrap, al right, w 100::80%");
+        body.repaint();
+        body.revalidate();
+    }
+    
+    public void addItemFileRight(String text, String fileName, String fileSize) {
+        ChatRight item = new ChatRight();
+        item.setText(text);
+        item.setFile(fileName, fileSize);
         body.add(item, "wrap, al right, w 100::80%");
         body.repaint();
         body.revalidate();

@@ -2,6 +2,7 @@ com\example\component\ChatBottom.class
 com\example\event\PublicEvent.class
 com\example\swing\blurHash\BlurHash.class
 com\example\main\Main$4.class
+com\example\component\ChatFile.class
 com\example\swing\Line.class
 com\example\component\ChatLeft.class
 com\example\component\ChatImage$1.class
@@ -17,6 +18,7 @@ com\example\main\Main$1.class
 com\example\swing\blurHash\Util.class
 com\example\form\Chat.class
 com\example\swing\PictureBox.class
+com\example\swing\Progress$ProgressType.class
 com\example\main\Main$3.class
 com\example\component\ImageItem.class
 com\example\form\MenuLeft$2.class

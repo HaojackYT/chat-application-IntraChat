@@ -20,11 +20,13 @@ public class ProgressCircleUI extends BasicProgressBarUI {
     private final Progress progress;
     private final Image imageDown;
     private final Image imageCancle;
-    
+    private final Image imageFile;
+
     public ProgressCircleUI(Progress progress) {
         this.progress = progress;
         imageDown = new ImageIcon(getClass().getResource("/icon/down.png")).getImage();
         imageCancle = new ImageIcon(getClass().getResource("/icon/cancel.png")).getImage();
+        imageFile = new ImageIcon(getClass().getResource("/icon/file.png")).getImage();
     }
 
     @Override
@@ -50,7 +52,9 @@ public class ProgressCircleUI extends BasicProgressBarUI {
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2.setColor(new Color(60, 60, 60, 50));
         g2.fillOval(0, 0, progress.getWidth(), progress.getHeight());
-        g2.drawImage(imageCancle, 10, 10, progress.getWidth() - 20, progress.getHeight() - 20, null);
+        if (progress.getProgressType() != Progress.ProgressType.NONE) {
+            g2.drawImage(progress.getProgressType() == Progress.ProgressType.CANCLE ? imageCancle : progress.getProgressType() == Progress.ProgressType.DOWN_FILE ? imageDown : imageFile, 10, 10, progress.getWidth() - 20, progress.getHeight() - 20, null);
+        }
         double degree = 360 * progressBar.getPercentComplete();
         double sz = Math.min(barRectWidth, barRectHeight);
         double cx = b.left + barRectWidth * .5;
