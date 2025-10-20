@@ -28,6 +28,16 @@ public class ChatImage extends javax.swing.JLayeredPane {
         }
     }
     
+    public void addImage(String... images) {
+        for (String image : images) {
+            ImageItem pictureBox = new ImageItem();
+            pictureBox.setPreferredSize(new Dimension(200, 200));
+            pictureBox.setImage(image);
+//            addEvent(pictureBox, image);
+            add(pictureBox, "wrap");
+        }
+    }
+    
     private void addEvent(Component component, Icon image) {
         component.setCursor(new Cursor(Cursor.HAND_CURSOR));
         component.addMouseListener(new MouseAdapter() {

@@ -24,6 +24,10 @@ public class ChatRight extends javax.swing.JLayeredPane {
         txt.setImage(true, images);
     }
     
+    public void setImage(String... images) {
+        txt.setImage(false, images);
+    }
+    
     public void setTime() {
         // Test data:
         txt.setTime("10:30 PM");

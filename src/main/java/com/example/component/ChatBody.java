@@ -16,6 +16,10 @@ public class ChatBody extends javax.swing.JPanel {
         addDate("16/10/2025");
         addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
         addDate("Today");
+        // LLMs_{?d_49GD%WEV@s;-oD$DjRP = sleepy-cat.jpg
+        // LEF}l]$k9u-o02~VRj9ZNs56xa%1 = transparent-cat.png
+        String img[] = {"LLMs_{?d_49GD%WEV@s;-oD$DjRP", "LEF}l]$k9u-o02~VRj9ZNs56xa%1"};
+        addItemLeft("Hello\nwewewewe\newewewew", "Hieu", img);
         addItemRight("Hello\nwewewewe\newewewew", new ImageIcon(getClass().getResource("/icon/transparent-cat.png")));
         addItemLeft("", "Hieu", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/2face-cat.png")));
     }
@@ -35,7 +39,17 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(item, "wrap, w 100::80%");
         body.repaint();
         body.revalidate();
-        
+    }
+    
+    public void addItemLeft(String text, String user, String[] images) {
+        ChatLeftProfile item = new ChatLeftProfile();
+        item.setText(text);
+        item.setImage(images);
+        item.setTime();
+        item.setUserProfile(user);
+        body.add(item, "wrap, w 100::80%");
+        body.repaint();
+        body.revalidate();
     }
 
     public void addItemRight(String text, Icon... images) {
