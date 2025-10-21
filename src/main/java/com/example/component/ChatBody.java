@@ -1,9 +1,14 @@
 package com.example.component;
 
 import com.example.swing.ScrollBar;
+import java.awt.Adjustable;
 import java.awt.Color;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import net.miginfocom.swing.MigLayout;
 
 public class ChatBody extends javax.swing.JPanel {
@@ -72,6 +77,8 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(item, "wrap, al right, w 100::80%");
         body.repaint();
         body.revalidate();
+        item.setTime();
+        scrollToBottom();
     }
     
     public void addItemFileRight(String text, String fileName, String fileSize) {
@@ -89,6 +96,19 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(item, "wrap, al center");
         body.repaint();
         body.revalidate();
+    }
+    
+    private void scrollToBottom() {
+        JScrollBar verticalBar = sp.getVerticalScrollBar();
+        AdjustmentListener downScroller = new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                Adjustable adjustable = e.getAdjustable();
+                adjustable.setValue(adjustable.getMaximum());
+                verticalBar.removeAdjustmentListener(this);
+            }
+        };
+        verticalBar.addAdjustmentListener(downScroller);
     }
     
     /**

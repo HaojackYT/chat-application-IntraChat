@@ -13,8 +13,10 @@ com\example\swing\ImageAvatar.class
 com\example\swing\JIMSendTextPane$WarpEditorKit.class
 com\example\swing\JIMSendTextPane.class
 com\example\component\ItemPeople.class
+com\example\component\ChatBottom$1.class
 com\example\form\MenuLeft$1.class
 com\example\main\Main$1.class
+com\example\form\Chat$1.class
 com\example\swing\blurHash\Util.class
 com\example\form\Chat.class
 com\example\swing\PictureBox.class
@@ -22,9 +24,11 @@ com\example\swing\Progress$ProgressType.class
 com\example\main\Main$3.class
 com\example\component\ImageItem.class
 com\example\form\MenuLeft$2.class
+com\example\component\ChatBody$1.class
 com\example\component\ChatItem.class
 com\example\form\ViewImage$1.class
 com\example\form\ViewImage.class
+com\example\component\ChatBottom$2.class
 com\example\main\Main$2.class
 com\example\form\MenuRight.class
 com\example\main\Main$6.class
@@ -44,6 +48,7 @@ com\example\swing\ComponentResizer.class
 com\example\component\ChatDate.class
 com\example\swing\JIMSendTextPane$WarpLabelView.class
 com\example\event\EventImageView.class
+com\example\event\EventChat.class
 com\example\swing\ModernScrollBarUI.class
 com\example\swing\ProgressCircleUI.class
 com\example\component\ChatRight.class
