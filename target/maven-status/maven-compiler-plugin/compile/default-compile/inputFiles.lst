@@ -13,11 +13,17 @@ C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\component\MenuButton.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\event\EventChat.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\event\EventImageView.java
+C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\event\EventLogin.java
+C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\event\EventMain.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\event\PublicEvent.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\Chat.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\Home.java
+C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\Loading.java
+C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\Login.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\MenuLeft.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\MenuRight.java
+C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\PageLogin.java
+C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\PageRegister.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\form\ViewImage.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\main\Main.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\blurHash\Base83.java
@@ -29,6 +35,7 @@ C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\JIMSendTextPane.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\Line.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\ModernScrollBarUI.java
+C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\PanelSlide.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\PictureBox.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\Progress.java
 C:\Users\tangc\OneDrive\Desktop\VSC_Projects\chat-application-IntraChat\src\main\java\com\example\swing\ProgressCircleUI.java

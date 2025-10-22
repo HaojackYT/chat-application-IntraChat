@@ -1,8 +1,10 @@
 package com.example.main;
 
 import com.example.event.EventImageView;
+import com.example.event.EventMain;
 import com.example.event.PublicEvent;
 import com.example.swing.ComponentResizer;
+import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -23,12 +25,26 @@ public class Main extends javax.swing.JFrame {
         com.setMinimumSize(new Dimension(800, 500));
         com.setMaximumSize(Toolkit.getDefaultToolkit().getScreenSize());
         com.setSnapSize(new Dimension(10, 10));
+        login.setVisible(true);
+        loading.setVisible(false);
         viewImage.setVisible(false);
-        home.setVisible(true);
+        home.setVisible(false);
         initEvent();
     }
     
     private void initEvent() {
+        PublicEvent.getInstance().addEventMain(new EventMain() {
+            @Override
+            public void showLoading(boolean show) {
+                loading.setVisible(show);
+            }
+
+            @Override
+            public void initChat() {
+                home.setVisible(true);
+            }
+        
+        });
         PublicEvent.getInstance().addEventImageView(new EventImageView() {
             @Override
             public void viewImage(Icon image) {
@@ -57,6 +73,8 @@ public class Main extends javax.swing.JFrame {
         cmdMinimize = new javax.swing.JButton();
         cmdClose = new javax.swing.JButton();
         body = new javax.swing.JLayeredPane();
+        loading = new com.example.form.Loading();
+        login = new com.example.form.Login();
         viewImage = new com.example.form.ViewImage();
         home = new com.example.form.Home();
 
@@ -117,6 +135,8 @@ public class Main extends javax.swing.JFrame {
         );
 
         body.setLayout(new java.awt.CardLayout());
+        body.add(loading, "card5");
+        body.add(login, "card4");
         body.setLayer(viewImage, javax.swing.JLayeredPane.POPUP_LAYER);
         body.add(viewImage, "card3");
         body.add(home, "card2");
@@ -126,9 +146,7 @@ public class Main extends javax.swing.JFrame {
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(backgroundLayout.createSequentialGroup()
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,31 +198,9 @@ public class Main extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        FlatArcIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Main().setVisible(true);
             }
@@ -218,6 +214,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton cmdClose;
     private javax.swing.JButton cmdMinimize;
     private com.example.form.Home home;
+    private com.example.form.Loading loading;
+    private com.example.form.Login login;
     private javax.swing.JPanel title;
     private com.example.form.ViewImage viewImage;
     // End of variables declaration//GEN-END:variables
