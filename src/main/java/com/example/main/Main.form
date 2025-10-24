@@ -105,7 +105,7 @@
                 <Component class="javax.swing.JButton" name="cmdMinimize">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/minimize.png"/>
+                      <Image iconType="3" name="/icon/minimize.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
@@ -122,7 +122,7 @@
                 <Component class="javax.swing.JButton" name="cmdClose">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/close.png"/>
+                      <Image iconType="3" name="/icon/close.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>

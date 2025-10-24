@@ -57,7 +57,7 @@
               <Image iconType="3" name="/icon/message_selected.png"/>
             </Property>
             <Property name="iconSimple" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/message.png"/>
+              <Image iconType="3" name="/icon/message.png"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
           </Properties>
@@ -71,10 +71,10 @@
               <Image iconType="3" name="/icon/group.png"/>
             </Property>
             <Property name="iconSelected" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/group_selected.png"/>
+              <Image iconType="3" name="/icon/group_selected.png"/>
             </Property>
             <Property name="iconSimple" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/group.png"/>
+              <Image iconType="3" name="/icon/group.png"/>
             </Property>
           </Properties>
           <Events>
@@ -87,10 +87,10 @@
               <Image iconType="3" name="/icon/box.png"/>
             </Property>
             <Property name="iconSelected" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/box_selected.png"/>
+              <Image iconType="3" name="/icon/box_selected.png"/>
             </Property>
             <Property name="iconSimple" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/box.png"/>
+              <Image iconType="3" name="/icon/box.png"/>
             </Property>
           </Properties>
           <Events>

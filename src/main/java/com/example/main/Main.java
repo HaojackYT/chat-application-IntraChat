@@ -94,7 +94,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        cmdMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minimize.png"))); // NOI18N
+        cmdMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/minimize.png"))); // NOI18N
         cmdMinimize.setBorder(null);
         cmdMinimize.setContentAreaFilled(false);
         cmdMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -104,7 +104,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        cmdClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/close.png"))); // NOI18N
+        cmdClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/close.png"))); // NOI18N
         cmdClose.setBorder(null);
         cmdClose.setContentAreaFilled(false);
         cmdClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

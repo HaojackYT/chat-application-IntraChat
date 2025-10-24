@@ -8,7 +8,6 @@ import java.awt.event.AdjustmentListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import net.miginfocom.swing.MigLayout;
 
 public class ChatBody extends javax.swing.JPanel {
@@ -17,9 +16,9 @@ public class ChatBody extends javax.swing.JPanel {
         initComponents();
         init();
         // Test data:
-        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
+        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
         addDate("16/10/2025");
-        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu", new ImageIcon(getClass().getResource("/icon/avatar.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
+        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
         addDate("Today");
         // LLMs_{?d_49GD%WEV@s;-oD$DjRP = sleepy-cat.jpg
         // LEF}l]$k9u-o02~VRj9ZNs56xa%1 = transparent-cat.png

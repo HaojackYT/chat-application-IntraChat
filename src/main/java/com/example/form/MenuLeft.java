@@ -71,7 +71,7 @@ public class MenuLeft extends javax.swing.JPanel {
         menu.setLayout(new java.awt.GridLayout(1, 3));
 
         menuMessage.setIconSelected(new javax.swing.ImageIcon(getClass().getResource("/icon/message_selected.png"))); // NOI18N
-        menuMessage.setIconSimple(new javax.swing.ImageIcon(getClass().getResource("/message.png"))); // NOI18N
+        menuMessage.setIconSimple(new javax.swing.ImageIcon(getClass().getResource("/icon/message.png"))); // NOI18N
         menuMessage.setSelected(true);
         menuMessage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,8 +81,8 @@ public class MenuLeft extends javax.swing.JPanel {
         menu.add(menuMessage);
 
         menuGroup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/group.png"))); // NOI18N
-        menuGroup.setIconSelected(new javax.swing.ImageIcon(getClass().getResource("/group_selected.png"))); // NOI18N
-        menuGroup.setIconSimple(new javax.swing.ImageIcon(getClass().getResource("/group.png"))); // NOI18N
+        menuGroup.setIconSelected(new javax.swing.ImageIcon(getClass().getResource("/icon/group_selected.png"))); // NOI18N
+        menuGroup.setIconSimple(new javax.swing.ImageIcon(getClass().getResource("/icon/group.png"))); // NOI18N
         menuGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuGroupActionPerformed(evt);
@@ -91,8 +91,8 @@ public class MenuLeft extends javax.swing.JPanel {
         menu.add(menuGroup);
 
         menuBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/box.png"))); // NOI18N
-        menuBox.setIconSelected(new javax.swing.ImageIcon(getClass().getResource("/box_selected.png"))); // NOI18N
-        menuBox.setIconSimple(new javax.swing.ImageIcon(getClass().getResource("/box.png"))); // NOI18N
+        menuBox.setIconSelected(new javax.swing.ImageIcon(getClass().getResource("/icon/box_selected.png"))); // NOI18N
+        menuBox.setIconSimple(new javax.swing.ImageIcon(getClass().getResource("/icon/box.png"))); // NOI18N
         menuBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuBoxActionPerformed(evt);

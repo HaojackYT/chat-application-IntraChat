@@ -61,10 +61,9 @@ public class ChatLeftProfile extends javax.swing.JLayeredPane {
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         iaimage.setBorderSize(0);
-        iaimage.setImage(new javax.swing.ImageIcon(getClass().getResource("/avatar.png"))); // NOI18N
+        iaimage.setImage(new javax.swing.ImageIcon(getClass().getResource("/icon/2face-cat.png"))); // NOI18N
         iaimage.setMaximumSize(new java.awt.Dimension(31, 31));
         iaimage.setMinimumSize(new java.awt.Dimension(31, 31));
-        iaimage.setPreferredSize(new java.awt.Dimension(31, 31));
 
         jLayeredPane1.setLayer(iaimage, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
