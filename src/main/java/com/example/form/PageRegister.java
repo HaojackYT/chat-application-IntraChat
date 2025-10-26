@@ -1,6 +1,9 @@
 package com.example.form;
 
+import com.example.event.EventMessage;
 import com.example.event.PublicEvent;
+import com.example.model.ModelMessage;
+import com.example.model.ModelRegister;
 
 public class PageRegister extends javax.swing.JPanel {
 
@@ -26,6 +29,7 @@ public class PageRegister extends javax.swing.JPanel {
         cmdBackLogin = new javax.swing.JButton();
         txtRePassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
+        lbError = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -76,6 +80,10 @@ public class PageRegister extends javax.swing.JPanel {
 
         jLabel3.setText("Confirm Password");
 
+        lbError.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lbError.setForeground(new java.awt.Color(255, 0, 51));
+        lbError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,7 +99,8 @@ public class PageRegister extends javax.swing.JPanel {
                     .addComponent(cmdReRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmdBackLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtRePassword))
+                    .addComponent(txtRePassword)
+                    .addComponent(lbError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -111,11 +120,13 @@ public class PageRegister extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(cmdReRegister)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmdBackLogin)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbError)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,7 +135,28 @@ public class PageRegister extends javax.swing.JPanel {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void cmdReRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdReRegisterActionPerformed
-        PublicEvent.getInstance().getEventLogin().register();
+        String userName = txtUser.getText().trim();
+        String password = String.valueOf(txtPassword.getPassword());
+        String confirmPassword = String.valueOf(txtRePassword.getPassword());
+        if(userName.equals("")) {
+            txtUser.grabFocus();
+        } else if (password.equals("")) {
+            txtPassword.grabFocus();
+        } else if (!password.equals(confirmPassword)) {
+            txtPassword.grabFocus();
+        } else {
+            ModelRegister data = new ModelRegister(userName, password);
+            PublicEvent.getInstance().getEventLogin().register(data, new EventMessage() {
+                @Override
+                public void callMessage(ModelMessage message) {
+                    if (!message.isAction()) {
+                        lbError.setText(message.getMessage());
+                    } else {
+                        PublicEvent.getInstance().getEventLogin().login();
+                    }
+                }
+            });
+        }
     }//GEN-LAST:event_cmdReRegisterActionPerformed
 
     private void cmdBackLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBackLoginActionPerformed
@@ -146,6 +178,7 @@ public class PageRegister extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lbError;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtRePassword;
