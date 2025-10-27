@@ -5,6 +5,7 @@ import com.example.event.EventMessage;
 import com.example.event.PublicEvent;
 import com.example.model.ModelMessage;
 import com.example.model.ModelRegister;
+import com.example.model.ModelUserAccount;
 import com.example.service.Service;
 import io.socket.client.Ack;
 
@@ -45,6 +46,10 @@ public class Login extends javax.swing.JPanel {
                             ModelMessage ms = new ModelMessage((boolean)args[0], args[1].toString());
                             // Call message back when done register
                             message.callMessage(ms);
+                            if (ms.isAction()) {
+                                ModelUserAccount user = new ModelUserAccount(args[2]);
+                                Service.getInstance().setUser(user);
+                            }
                         }
                     }
                 });

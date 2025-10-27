@@ -1,36 +1,54 @@
 package com.example.form;
 
 import com.example.component.ItemPeople;
+import com.example.event.EventMenuLeft;
+import com.example.event.PublicEvent;
+import com.example.model.ModelUserAccount;
 import com.example.swing.ScrollBar;
+import java.util.ArrayList;
+import java.util.List;
 import net.miginfocom.swing.MigLayout;
 
 public class MenuLeft extends javax.swing.JPanel {
+
+    private List<ModelUserAccount> userAccount;
 
     public MenuLeft() {
         initComponents();
         init();
     }
-    
+
     private void init() {
         sp.setVerticalScrollBar(new ScrollBar());
         menuList.setLayout(new MigLayout("fillx", "0[]0", "0[]0"));
+        userAccount = new ArrayList<>();
+        PublicEvent.getInstance().addEventMenuLeft(new EventMenuLeft() {
+            @Override
+            public void newUser(List<ModelUserAccount> users) {
+                for (ModelUserAccount user : users) {
+                    userAccount.add(user);
+                    menuList.add(new ItemPeople(user.getUserName()), "wrap");
+                    refeshMenuList();
+                }
+            }
+        });
         showMessage();
     }
-    
+
     private void refeshMenuList() {
         menuList.repaint();
         menuList.revalidate();
     }
-    
+
     private void showMessage() {
         // Test data:
         menuList.removeAll();
-        for (int i = 0; i < 20; i++) {
-            menuList.add(new ItemPeople("People " + i), "wrap");
+        for (ModelUserAccount user : userAccount) {
+            menuList.add(new ItemPeople(user.getUserName()), "wrap");
         }
         refeshMenuList();
     }
-    
+
     private void showGroup() {
         // Test data:
         menuList.removeAll();
@@ -39,7 +57,7 @@ public class MenuLeft extends javax.swing.JPanel {
         }
         refeshMenuList();
     }
-    
+
     private void showBox() {
         // Test data:
         menuList.removeAll();
@@ -48,7 +66,7 @@ public class MenuLeft extends javax.swing.JPanel {
         }
         refeshMenuList();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,7 +156,7 @@ public class MenuLeft extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMessageActionPerformed
-        if (!menuMessage.isSelected()) {   
+        if (!menuMessage.isSelected()) {
             menuMessage.setSelected(true);
             menuGroup.setSelected(false);
             menuBox.setSelected(false);
@@ -147,7 +165,7 @@ public class MenuLeft extends javax.swing.JPanel {
     }//GEN-LAST:event_menuMessageActionPerformed
 
     private void menuGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGroupActionPerformed
-        if (!menuGroup.isSelected()) {     
+        if (!menuGroup.isSelected()) {
             menuMessage.setSelected(false);
             menuGroup.setSelected(true);
             menuBox.setSelected(false);
@@ -156,7 +174,7 @@ public class MenuLeft extends javax.swing.JPanel {
     }//GEN-LAST:event_menuGroupActionPerformed
 
     private void menuBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBoxActionPerformed
-        if (!menuBox.isSelected()) {    
+        if (!menuBox.isSelected()) {
             menuMessage.setSelected(false);
             menuGroup.setSelected(false);
             menuBox.setSelected(true);

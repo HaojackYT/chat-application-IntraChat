@@ -6,6 +6,7 @@ import com.example.event.PublicEvent;
 import com.example.service.Service;
 import com.example.swing.ComponentResizer;
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
+import io.socket.emitter.Emitter;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -44,8 +45,8 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void initChat() {
                 home.setVisible(true);
+                Service.getInstance().getClient().emit("list_user", Service.getInstance().getUser().getUserID());
             }
-        
         });
         PublicEvent.getInstance().addEventImageView(new EventImageView() {
             @Override
