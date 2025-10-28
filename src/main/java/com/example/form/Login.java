@@ -3,6 +3,7 @@ package com.example.form;
 import com.example.event.EventLogin;
 import com.example.event.EventMessage;
 import com.example.event.PublicEvent;
+import com.example.model.ModelLogin;
 import com.example.model.ModelMessage;
 import com.example.model.ModelRegister;
 import com.example.model.ModelUserAccount;
@@ -19,20 +20,29 @@ public class Login extends javax.swing.JPanel {
     private void init() {
         PublicEvent.getInstance().addEventLogin(new EventLogin() {
             @Override
-            public void login() {
+            public void login(ModelLogin data) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         PublicEvent.getInstance().getEventMain().showLoading(true);
-                        try {
-                            // Test:
-                            Thread.sleep(3000);
-                        } catch (Exception e) {
-
-                        }
-                        PublicEvent.getInstance().getEventMain().showLoading(false);
-                        PublicEvent.getInstance().getEventMain().initChat();
-                        setVisible(false);
+                        Service.getInstance().getClient().emit("login", data.toJSONObject(), new Ack() {
+                            @Override
+                            public void call(Object... args) {
+                                if (args.length > 0) {
+                                    boolean action = (Boolean) args[0];
+                                    if (action) {
+                                        Service.getInstance().setUser(new ModelUserAccount(args[1]));
+                                        PublicEvent.getInstance().getEventMain().showLoading(false);
+                                        PublicEvent.getInstance().getEventMain().initChat();
+                                    } else {
+                                        // Password wrong
+                                        PublicEvent.getInstance().getEventMain().showLoading(false);
+                                    }
+                                } else {
+                                    PublicEvent.getInstance().getEventMain().showLoading(false);
+                                }
+                            }
+                        });
                     }
                 }).start();
             }
@@ -45,11 +55,11 @@ public class Login extends javax.swing.JPanel {
                         if (args.length > 0) {
                             ModelMessage ms = new ModelMessage((boolean)args[0], args[1].toString());
                             // Call message back when done register
-                            message.callMessage(ms);
                             if (ms.isAction()) {
                                 ModelUserAccount user = new ModelUserAccount(args[2]);
                                 Service.getInstance().setUser(user);
                             }
+                            message.callMessage(ms);
                         }
                     }
                 });

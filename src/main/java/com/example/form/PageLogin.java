@@ -1,6 +1,7 @@
 package com.example.form;
 
 import com.example.event.PublicEvent;
+import com.example.model.ModelLogin;
 
 public class PageLogin extends javax.swing.JPanel {
 
@@ -109,7 +110,7 @@ public class PageLogin extends javax.swing.JPanel {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
-        PublicEvent.getInstance().getEventLogin().login();
+        PublicEvent.getInstance().getEventLogin().login(new ModelLogin(txtUser.getText(), String.valueOf(txtPassword.getPassword())));
     }//GEN-LAST:event_cmdLoginActionPerformed
 
     private void cmdRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRegisterActionPerformed
@@ -117,7 +118,7 @@ public class PageLogin extends javax.swing.JPanel {
     }//GEN-LAST:event_cmdRegisterActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        PublicEvent.getInstance().getEventLogin().login();
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
 
 
