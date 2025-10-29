@@ -5,6 +5,7 @@ import com.example.event.EventMenuLeft;
 import com.example.event.PublicEvent;
 import com.example.model.ModelUserAccount;
 import com.example.swing.ScrollBar;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import net.miginfocom.swing.MigLayout;
@@ -27,8 +28,48 @@ public class MenuLeft extends javax.swing.JPanel {
             public void newUser(List<ModelUserAccount> users) {
                 for (ModelUserAccount user : users) {
                     userAccount.add(user);
-                    menuList.add(new ItemPeople(user.getUserName()), "wrap");
+                    menuList.add(new ItemPeople(user), "wrap");
                     refeshMenuList();
+                }
+            }
+
+            @Override
+            public void userConnect(int userID) {
+                for (ModelUserAccount u : userAccount) {
+                    if (u.getUserID() == userID) {
+                        u.setStatus(true);
+                        break;
+                    }
+                }
+                
+                if (menuMessage.isSelected()) {
+                    for (Component com : menuList.getComponents()) {
+                        ItemPeople item = (ItemPeople) com;
+                        if (item.getUser().getUserID() == userID) {
+                            item.updateStatus();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void userDisconnect(int userID) {
+                for (ModelUserAccount u : userAccount) {
+                    if (u.getUserID() == userID) {
+                        u.setStatus(false);
+                        break;
+                    }
+                }
+                
+                if (menuMessage.isSelected()) {
+                    for (Component com : menuList.getComponents()) {
+                        ItemPeople item = (ItemPeople) com;
+                        if (item.getUser().getUserID() == userID) {
+                            item.updateStatus();
+                            break;
+                        }
+                    }
                 }
             }
         });
@@ -44,7 +85,7 @@ public class MenuLeft extends javax.swing.JPanel {
         // Test data:
         menuList.removeAll();
         for (ModelUserAccount user : userAccount) {
-            menuList.add(new ItemPeople(user.getUserName()), "wrap");
+            menuList.add(new ItemPeople(null), "wrap");
         }
         refeshMenuList();
     }
@@ -53,7 +94,7 @@ public class MenuLeft extends javax.swing.JPanel {
         // Test data:
         menuList.removeAll();
         for (int i = 0; i < 5; i++) {
-            menuList.add(new ItemPeople("Group " + i), "wrap");
+            menuList.add(new ItemPeople(null), "wrap");
         }
         refeshMenuList();
     }
@@ -62,7 +103,7 @@ public class MenuLeft extends javax.swing.JPanel {
         // Test data:
         menuList.removeAll();
         for (int i = 0; i < 10; i++) {
-            menuList.add(new ItemPeople("Box " + i), "wrap");
+            menuList.add(new ItemPeople(null), "wrap");
         }
         refeshMenuList();
     }
