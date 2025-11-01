@@ -5,10 +5,15 @@ import com.example.component.ChatBottom;
 import com.example.component.ChatTitle;
 import com.example.event.EventChat;
 import com.example.event.PublicEvent;
+import com.example.model.ModelUserAccount;
 import net.miginfocom.swing.MigLayout;
 
 public class Chat extends javax.swing.JPanel {
-
+    
+    private ChatTitle chatTitle;
+    private ChatBody chatBody;
+    private ChatBottom chatBottom;
+    
     public Chat() {
         initComponents();
         init();
@@ -16,9 +21,9 @@ public class Chat extends javax.swing.JPanel {
 
     private void init() {
         setLayout(new MigLayout("fillx", "0[fill]0", "0[]0[100%, bottom]0[shrink 0]0"));
-        ChatTitle chatTitle = new ChatTitle();
-        ChatBody chatBody = new ChatBody();
-        ChatBottom chatBottom = new ChatBottom();
+        chatTitle = new ChatTitle();
+        chatBody = new ChatBody();
+        chatBottom = new ChatBottom();
         PublicEvent.getInstance().addEventChat(new EventChat() {
             @Override
             public void sendMessage(String text) {
@@ -29,7 +34,16 @@ public class Chat extends javax.swing.JPanel {
         add(chatBody, "wrap");
         add(chatBottom, "h ::50%");
     }
-
+    
+    public void setUser(ModelUserAccount user) {
+        chatTitle.setUserName(user);
+        chatBottom.setUser(user);
+    }
+    
+    public void updateUser(ModelUserAccount user) {
+        chatTitle.updateUser(user);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

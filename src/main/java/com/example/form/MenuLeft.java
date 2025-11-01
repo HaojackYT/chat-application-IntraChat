@@ -38,6 +38,7 @@ public class MenuLeft extends javax.swing.JPanel {
                 for (ModelUserAccount u : userAccount) {
                     if (u.getUserID() == userID) {
                         u.setStatus(true);
+                        PublicEvent.getInstance().getEventMain().updateUser(u);
                         break;
                     }
                 }
@@ -58,6 +59,7 @@ public class MenuLeft extends javax.swing.JPanel {
                 for (ModelUserAccount u : userAccount) {
                     if (u.getUserID() == userID) {
                         u.setStatus(false);
+                        PublicEvent.getInstance().getEventMain().updateUser(u);
                         break;
                     }
                 }

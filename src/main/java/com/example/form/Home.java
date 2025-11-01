@@ -1,9 +1,12 @@
 package com.example.form;
 
+import com.example.model.ModelUserAccount;
 import net.miginfocom.swing.MigLayout;
 
 public class Home extends javax.swing.JLayeredPane {
 
+    private Chat chat;
+    
     public Home() {
         initComponents();
         init();
@@ -12,9 +15,21 @@ public class Home extends javax.swing.JLayeredPane {
     private void init() {
         setLayout(new MigLayout("fillx, filly", "0[200!]5[fill, 100%]5[200!]0", "0[fill]0"));
         this.add(new MenuLeft());
-        this.add(new Chat());
+        chat = new Chat();
+        this.add(chat);
         this.add(new MenuRight());
+        chat.setVisible(false);
     }
+    
+    public void setUser(ModelUserAccount user) {
+        chat.setUser(user);
+        chat.setVisible(true);
+    }
+    
+    public void updateUser(ModelUserAccount user) {
+        chat.updateUser(user);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

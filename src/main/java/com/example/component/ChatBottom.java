@@ -1,6 +1,7 @@
 package com.example.component;
 
 import com.example.event.PublicEvent;
+import com.example.model.ModelUserAccount;
 import com.example.swing.JIMSendTextPane;
 import com.example.swing.ScrollBar;
 import java.awt.Color;
@@ -18,7 +19,9 @@ import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 public class ChatBottom extends javax.swing.JPanel {
-
+    
+    private ModelUserAccount user;
+    
     public ChatBottom() {
         initComponents();
         init();
@@ -74,7 +77,15 @@ public class ChatBottom extends javax.swing.JPanel {
     private void refresh() {
         revalidate();
     }
+    
+    public ModelUserAccount getUser() {
+        return user;
+    }
 
+    public void setUser(ModelUserAccount user) {
+        this.user = user;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

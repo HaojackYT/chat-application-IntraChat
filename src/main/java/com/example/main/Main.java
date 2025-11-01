@@ -3,6 +3,7 @@ package com.example.main;
 import com.example.event.EventImageView;
 import com.example.event.EventMain;
 import com.example.event.PublicEvent;
+import com.example.model.ModelUserAccount;
 import com.example.service.Service;
 import com.example.swing.ComponentResizer;
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
@@ -46,6 +47,16 @@ public class Main extends javax.swing.JFrame {
                 home.setVisible(true);
                 login.setVisible(false);
                 Service.getInstance().getClient().emit("list_user", Service.getInstance().getUser().getUserID());
+            }
+            
+            @Override
+            public void selectUser(ModelUserAccount user) {
+                home.setUser(user);
+            }
+            
+            @Override
+            public void updateUser(ModelUserAccount user) {
+                home.updateUser(user);
             }
         });
         PublicEvent.getInstance().addEventImageView(new EventImageView() {
