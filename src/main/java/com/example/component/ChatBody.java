@@ -1,12 +1,12 @@
 package com.example.component;
 
+import com.example.model.ModelReceiveMessage;
+import com.example.model.ModelSendMessage;
 import com.example.swing.ScrollBar;
 import java.awt.Adjustable;
 import java.awt.Color;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
 import net.miginfocom.swing.MigLayout;
 
@@ -15,19 +15,6 @@ public class ChatBody extends javax.swing.JPanel {
     public ChatBody() {
         initComponents();
         init();
-        // Test data:
-        addItemRight("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
-        addDate("16/10/2025");
-        addItemLeft("Although the sky was covered with heavy gray clouds and the wind howled through the empty streets, Maria continued walking toward the old lighthouse, clutching the worn leather journal in her hands, determined to uncover the forgotten secret her grandfather had hidden there decades ago before disappearing without a trace.", "Hieu", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/sleepy-cat.jpg")));
-        addDate("Today");
-        // LLMs_{?d_49GD%WEV@s;-oD$DjRP = sleepy-cat.jpg
-        // LEF}l]$k9u-o02~VRj9ZNs56xa%1 = transparent-cat.png
-        String img[] = {"LLMs_{?d_49GD%WEV@s;-oD$DjRP", "LEF}l]$k9u-o02~VRj9ZNs56xa%1"};
-        addItemLeft("Hello\nwewewewe\newewewew", "Hieu", img);
-        addItemRight("Hello\nwewewewe\newewewew", new ImageIcon(getClass().getResource("/icon/transparent-cat.png")));
-        addItemLeft("", "Hieu", new ImageIcon(getClass().getResource("/icon/2face-cat.png")), new ImageIcon(getClass().getResource("/icon/2face-cat.png")));
-        addItemFile("My research", "Hieu", "research.pdf", "100 MB");
-        addItemFileRight("", "E1.rar", "20 MB");
     }
 
     private void init() {
@@ -36,15 +23,13 @@ public class ChatBody extends javax.swing.JPanel {
         sp.getVerticalScrollBar().setBackground(Color.WHITE);
     }
 
-    public void addItemLeft(String text, String user, Icon... images) {
-        ChatLeftProfile item = new ChatLeftProfile();
-        item.setText(text);
-        item.setImage(images);
+    public void addItemLeft(ModelReceiveMessage data) {
+        ChatLeft item = new ChatLeft();
+        item.setText(data.getText());
         item.setTime();
-        item.setUserProfile(user);
         body.add(item, "wrap, w 100::80%");
-        body.repaint();
-        body.revalidate();
+        repaint();
+        revalidate();
     }
     
     public void addItemLeft(String text, String user, String[] images) {
@@ -69,13 +54,12 @@ public class ChatBody extends javax.swing.JPanel {
         body.revalidate();
     }
 
-    public void addItemRight(String text, Icon... images) {
+    public void addItemRight(ModelSendMessage data) {
         ChatRight item = new ChatRight();
-        item.setText(text);
-        item.setImage(images);
+        item.setText(data.getText());
         body.add(item, "wrap, al right, w 100::80%");
-        body.repaint();
-        body.revalidate();
+        repaint();
+        revalidate();
         item.setTime();
         scrollToBottom();
     }
@@ -95,6 +79,12 @@ public class ChatBody extends javax.swing.JPanel {
         body.add(item, "wrap, al center");
         body.repaint();
         body.revalidate();
+    }
+    
+    public void clearChat() {
+        body.removeAll();
+        repaint();
+        revalidate();
     }
     
     private void scrollToBottom() {

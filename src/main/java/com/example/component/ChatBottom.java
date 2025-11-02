@@ -1,7 +1,9 @@
 package com.example.component;
 
 import com.example.event.PublicEvent;
+import com.example.model.ModelSendMessage;
 import com.example.model.ModelUserAccount;
+import com.example.service.Service;
 import com.example.swing.JIMSendTextPane;
 import com.example.swing.ScrollBar;
 import java.awt.Color;
@@ -61,7 +63,9 @@ public class ChatBottom extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 String text = txt.getText().trim();
                 if (!text.equals("")) {
-                    PublicEvent.getInstance().getEventChat().sendMessage(text);
+                    ModelSendMessage message = new ModelSendMessage(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
+                    send(message);
+                    PublicEvent.getInstance().getEventChat().sendMessage(message);
                     txt.setText("");
                     txt.grabFocus();
                     refresh();
@@ -74,6 +78,10 @@ public class ChatBottom extends javax.swing.JPanel {
         add(panel);
     }
 
+    private void send(ModelSendMessage data) {
+        Service.getInstance().getClient().emit("send_to_user", data.toJSONObject());
+    }
+    
     private void refresh() {
         revalidate();
     }

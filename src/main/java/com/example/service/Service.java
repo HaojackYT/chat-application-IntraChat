@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.event.PublicEvent;
+import com.example.model.ModelReceiveMessage;
 import com.example.model.ModelUserAccount;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -29,6 +30,7 @@ public class Service {
     public void startClient() {
         try {
             client = IO.socket("http://" + IP + ":" + PORT_NUMBER);
+            
             client.on("list_user", new Emitter.Listener() {
                 @Override
                 public void call(Object... os) {
@@ -42,6 +44,7 @@ public class Service {
                     PublicEvent.getInstance().getEventMenuLeft().newUser(users);
                 }
             });
+            
             client.on("user_status", new Emitter.Listener() {
                 @Override
                 public void call(Object... os) {
@@ -56,6 +59,15 @@ public class Service {
                     }
                 }
             });
+            
+            client.on("receive_ms", new Emitter.Listener() {
+                @Override
+                public void call(Object... os) {
+                    ModelReceiveMessage message = new ModelReceiveMessage(os[0]);
+                    PublicEvent.getInstance().getEventChat().receiveMessage(message);
+                }
+            });
+            
             client.open();
         } catch (URISyntaxException e) {
             error(e);
