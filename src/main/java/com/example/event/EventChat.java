@@ -8,4 +8,6 @@ public interface EventChat {
     public void sendMessage(ModelSendMessage data);
     
     public void receiveMessage(ModelReceiveMessage data);
+
+    public void loadHistory(Object historyData);
 }

@@ -232,5 +232,4 @@ public class Main extends javax.swing.JFrame {
     private com.example.form.Login login;
     private javax.swing.JPanel title;
     private com.example.form.ViewImage viewImage;
-    // End of variables declaration//GEN-END:variables
 }

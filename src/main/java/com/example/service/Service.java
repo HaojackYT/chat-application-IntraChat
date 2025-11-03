@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.event.PublicEvent;
 import com.example.model.ModelReceiveMessage;
 import com.example.model.ModelUserAccount;
+import io.socket.client.Ack;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -88,5 +89,24 @@ public class Service {
 
     public void setUser(ModelUserAccount user) {
         this.user = user;
+    }
+    
+    /**
+     * Gửi yêu cầu lấy lịch sử chat giữa người dùng hiện tại và người bạn (friendID).
+     */
+    public void requestHistory(int friendID) {
+        if (client != null && client.connected()) {
+            // Sử dụng Ack để nhận dữ liệu hồi đáp từ Server
+            client.emit("get_history", friendID, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    if (args.length > 0 && args[0] != null) {
+                        PublicEvent.getInstance().getEventChat().loadHistory(args[0]);
+                    }
+                }
+            });
+        } else {
+             error(new Exception("Socket is not connected. Cannot request history."));
+        }
     }
 }

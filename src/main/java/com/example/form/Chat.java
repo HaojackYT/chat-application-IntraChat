@@ -9,6 +9,9 @@ import com.example.model.ModelReceiveMessage;
 import com.example.model.ModelSendMessage;
 import com.example.model.ModelUserAccount;
 import net.miginfocom.swing.MigLayout;
+import com.example.service.Service; 
+import org.json.JSONArray; 
+import org.json.JSONObject; 
 
 public class Chat extends javax.swing.JPanel {
     
@@ -38,7 +41,39 @@ public class Chat extends javax.swing.JPanel {
                     chatBody.addItemLeft(data);
                 }
             }
+
+            @Override
+            public void loadHistory(Object historyData) {
+                // Xóa chat cũ trước khi tải lịch sử
+                chatBody.clearChat(); 
+                
+                JSONArray jsonArray = (JSONArray) historyData;
+                
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        JSONObject json = jsonArray.getJSONObject(i);
+                        // Dữ liệu từ Server là ChatMessage, nhưng ta có thể dùng ModelReceiveMessage để parse
+                        ModelReceiveMessage message = new ModelReceiveMessage(json); 
+                        
+                        // Lấy ID của người dùng hiện tại đang đăng nhập
+                        int myID = Service.getInstance().getUser().getUserID();
+                        
+                        if (message.getFromUserID() == myID) {
+                            // Đây là tin nhắn *tôi đã gửi* (trong lịch sử)
+                            // KHẮC PHỤC: Chuyển đổi sang ModelSendMessage để addItemRight chấp nhận
+                            ModelSendMessage sentMsg = new ModelSendMessage(myID, message.getToUserID(), message.getText());
+                            chatBody.addItemRight(sentMsg); 
+                        } else {
+                            // Đây là tin nhắn *tôi đã nhận* (trong lịch sử)
+                            chatBody.addItemLeft(message); 
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Error processing history message: " + e.getMessage());
+                    }
+                }
+            }
         });
+
         add(chatTitle, "wrap");
         add(chatBody, "wrap");
         add(chatBottom, "h ::50%");
@@ -48,6 +83,8 @@ public class Chat extends javax.swing.JPanel {
         chatTitle.setUserName(user);
         chatBottom.setUser(user);
         chatBody.clearChat();
+
+        Service.getInstance().requestHistory(user.getUserID());
     }
     
     public void updateUser(ModelUserAccount user) {
