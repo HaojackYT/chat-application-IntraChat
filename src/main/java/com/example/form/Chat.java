@@ -37,25 +37,22 @@ public class Chat extends javax.swing.JPanel {
 
             @Override
             public void receiveMessage(ModelReceiveMessage data) {
-                
-                // ✅ FIX LOGIC: Kiểm tra NULL và ID
+
                 if (chatTitle.getUser() != null) {
                     
                     int currentChatUserID = chatTitle.getUser().getUserID(); 
                     int myID = Service.getInstance().getUser().getUserID(); 
                     
-                    // Trường hợp 1: Tin nhắn đến từ người đang chat (incoming)
                     if (data.getFromUserID() == currentChatUserID) {
                         chatBody.addItemLeft(data);
                         
-                    // Trường hợp 2: Tin nhắn TÔI tự gửi cho mình từ thiết bị khác (đồng bộ)
                     } else if (data.getFromUserID() == myID && data.getToUserID() == currentChatUserID) {
                         ModelSendMessage sentMsg = new ModelSendMessage(myID, data.getToUserID(), data.getText());
                         chatBody.addItemRight(sentMsg);
                     }
                 }
             }
-            
+
             @Override
             public void loadHistory(Object historyData) {
                 // Xóa chat cũ trước khi tải lịch sử
@@ -66,19 +63,14 @@ public class Chat extends javax.swing.JPanel {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         JSONObject json = jsonArray.getJSONObject(i);
-                        // Dữ liệu từ Server là ChatMessage, nhưng ta có thể dùng ModelReceiveMessage để parse
                         ModelReceiveMessage message = new ModelReceiveMessage(json); 
                         
-                        // Lấy ID của người dùng hiện tại đang đăng nhập
                         int myID = Service.getInstance().getUser().getUserID();
                         
                         if (message.getFromUserID() == myID) {
-                            // Đây là tin nhắn *tôi đã gửi* (trong lịch sử)
-                            // KHẮC PHỤC: Chuyển đổi sang ModelSendMessage để addItemRight chấp nhận
                             ModelSendMessage sentMsg = new ModelSendMessage(myID, message.getToUserID(), message.getText());
                             chatBody.addItemRight(sentMsg); 
                         } else {
-                            // Đây là tin nhắn *tôi đã nhận* (trong lịch sử)
                             chatBody.addItemLeft(message); 
                         }
                     } catch (Exception e) {

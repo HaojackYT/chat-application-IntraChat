@@ -69,8 +69,6 @@ public class Service {
                     if (os.length > 0) {
                         try {
                             ModelReceiveMessage message = new ModelReceiveMessage(os[0]);
-                            
-                            // ✅ FIX BẮT BUỘC: Đưa việc cập nhật UI vào Luồng EDT
                             SwingUtilities.invokeLater(new Runnable() {
                                 @Override
                                 public void run() {
@@ -106,9 +104,6 @@ public class Service {
         this.user = user;
     }
     
-    /**
-     * Gửi yêu cầu lấy lịch sử chat giữa người dùng hiện tại và người bạn (friendID).
-     */
     public void requestHistory(int friendID) {
         if (client != null && client.connected()) {
             // Sử dụng Ack để nhận dữ liệu hồi đáp từ Server

@@ -2,12 +2,19 @@ package com.example.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.sql.Timestamp;
 
 public class ModelReceiveMessage {
     
     int fromUserID;
     String text;
     private int toUserID;
+
+    public ModelReceiveMessage(int fromUserID, int toUserID, String text, Timestamp sentTime) { // ✅ THÊM sentTime
+        this.fromUserID = fromUserID;
+        this.toUserID = toUserID;
+        this.text = text;
+    }
 
     public ModelReceiveMessage(int fromUserID, int toUserID, String text) {
         this.fromUserID = fromUserID;
@@ -28,19 +35,15 @@ public class ModelReceiveMessage {
                 // Trường hợp 2: REAL-TIME (Event "receive_ms". Dùng key 'fromUserID')
                 } else if (obj.has("fromUserID") && obj.has("text")) {
                     this.fromUserID = obj.getInt("fromUserID");
-                    // ĐỌC THẲNG toUserID, không cần kiểm tra has("toUserID")
-                    // vì Server luôn gửi đủ 3 trường này trong tin nhắn Real-time.
                     this.toUserID = obj.getInt("toUserID"); 
                     this.text = obj.getString("text");
                 }
             } catch (Exception e) {
-                // In lỗi ra để dễ dàng debug
                 System.err.println("Error parsing ModelReceiveMessage from JSON: " + e.getMessage());
             }
         }
     }
     
-    // Constructor không tham số (quan trọng cho JSON Deserialization)
     public ModelReceiveMessage() { }
     
     public JSONObject toJSONObject() {
