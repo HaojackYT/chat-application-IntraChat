@@ -37,11 +37,25 @@ public class Chat extends javax.swing.JPanel {
 
             @Override
             public void receiveMessage(ModelReceiveMessage data) {
-                if (chatTitle.getUser().getUserID() == data.getFromUserID()) {
-                    chatBody.addItemLeft(data);
+                
+                // ✅ FIX LOGIC: Kiểm tra NULL và ID
+                if (chatTitle.getUser() != null) {
+                    
+                    int currentChatUserID = chatTitle.getUser().getUserID(); 
+                    int myID = Service.getInstance().getUser().getUserID(); 
+                    
+                    // Trường hợp 1: Tin nhắn đến từ người đang chat (incoming)
+                    if (data.getFromUserID() == currentChatUserID) {
+                        chatBody.addItemLeft(data);
+                        
+                    // Trường hợp 2: Tin nhắn TÔI tự gửi cho mình từ thiết bị khác (đồng bộ)
+                    } else if (data.getFromUserID() == myID && data.getToUserID() == currentChatUserID) {
+                        ModelSendMessage sentMsg = new ModelSendMessage(myID, data.getToUserID(), data.getText());
+                        chatBody.addItemRight(sentMsg);
+                    }
                 }
             }
-
+            
             @Override
             public void loadHistory(Object historyData) {
                 // Xóa chat cũ trước khi tải lịch sử

@@ -9,24 +9,39 @@ public class ModelReceiveMessage {
     String text;
     private int toUserID;
 
-    public ModelReceiveMessage(int fromUserID, String text) {
+    public ModelReceiveMessage(int fromUserID, int toUserID, String text) {
         this.fromUserID = fromUserID;
         this.toUserID = toUserID;
         this.text = text;
     }
 
     public ModelReceiveMessage(Object json) {
-        JSONObject obj = (JSONObject) json;
-        try {
-            fromUserID = obj.getInt("fromUserID");
-            if (obj.has("toUserID")) {
-                toUserID = obj.getInt("toUserID");
+        if (json instanceof JSONObject) {
+            JSONObject obj = (JSONObject) json;
+            try {
+                // Trường hợp 1: LỊCH SỬ CHAT (Ack Response từ Server. Dùng key 'senderId')
+                if (obj.has("senderId")) {
+                    this.fromUserID = obj.getInt("senderId");
+                    this.toUserID = obj.getInt("receiverId"); 
+                    this.text = obj.getString("content");
+                    
+                // Trường hợp 2: REAL-TIME (Event "receive_ms". Dùng key 'fromUserID')
+                } else if (obj.has("fromUserID") && obj.has("text")) {
+                    this.fromUserID = obj.getInt("fromUserID");
+                    // ĐỌC THẲNG toUserID, không cần kiểm tra has("toUserID")
+                    // vì Server luôn gửi đủ 3 trường này trong tin nhắn Real-time.
+                    this.toUserID = obj.getInt("toUserID"); 
+                    this.text = obj.getString("text");
+                }
+            } catch (Exception e) {
+                // In lỗi ra để dễ dàng debug
+                System.err.println("Error parsing ModelReceiveMessage from JSON: " + e.getMessage());
             }
-            text = obj.getString("text");
-        } catch (Exception e) {
-            System.out.println(e);
         }
     }
+    
+    // Constructor không tham số (quan trọng cho JSON Deserialization)
+    public ModelReceiveMessage() { }
     
     public JSONObject toJSONObject() {
         try {

@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 public class Service {
 
     private static Service instance;
@@ -64,8 +66,21 @@ public class Service {
             client.on("receive_ms", new Emitter.Listener() {
                 @Override
                 public void call(Object... os) {
-                    ModelReceiveMessage message = new ModelReceiveMessage(os[0]);
-                    PublicEvent.getInstance().getEventChat().receiveMessage(message);
+                    if (os.length > 0) {
+                        try {
+                            ModelReceiveMessage message = new ModelReceiveMessage(os[0]);
+                            
+                            // ✅ FIX BẮT BUỘC: Đưa việc cập nhật UI vào Luồng EDT
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PublicEvent.getInstance().getEventChat().receiveMessage(message);
+                                }
+                            });
+                        } catch (Exception e) {
+                            error(e);
+                        }
+                    }
                 }
             });
             
