@@ -2,7 +2,7 @@ package com.example.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.sql.Timestamp;
+
 
 public class ModelReceiveMessage {
     
@@ -10,11 +10,6 @@ public class ModelReceiveMessage {
     String text;
     private int toUserID;
 
-    public ModelReceiveMessage(int fromUserID, int toUserID, String text, Timestamp sentTime) { // ✅ THÊM sentTime
-        this.fromUserID = fromUserID;
-        this.toUserID = toUserID;
-        this.text = text;
-    }
 
     public ModelReceiveMessage(int fromUserID, int toUserID, String text) {
         this.fromUserID = fromUserID;
