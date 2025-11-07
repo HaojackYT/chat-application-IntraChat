@@ -21,9 +21,9 @@ import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 public class ChatBottom extends javax.swing.JPanel {
-    
+
     private ModelUserAccount user;
-    
+
     public ChatBottom() {
         initComponents();
         init();
@@ -39,6 +39,10 @@ public class ChatBottom extends javax.swing.JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
                 refresh();
+                if (e.getKeyChar() == 10 && e.isControlDown()) {
+                    // User press CTRL + ENTER
+                    eventSend(txt);
+                }
             }
         });
         txt.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,7 +58,7 @@ public class ChatBottom extends javax.swing.JPanel {
         panel.setLayout(new MigLayout("filly", "0[]3[]0", "0[bottom]0"));
         panel.setPreferredSize(new Dimension(30, 28));
         panel.setBackground(Color.WHITE);
-        
+
         JButton cmd = new JButton();
         cmd.setBorder(null);
         cmd.setContentAreaFilled(false);
@@ -63,20 +67,10 @@ public class ChatBottom extends javax.swing.JPanel {
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = txt.getText().trim();
-                if (!text.equals("")) {
-                    ModelSendMessage message = new ModelSendMessage(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
-                    send(message);
-                    PublicEvent.getInstance().getEventChat().sendMessage(message);
-                    txt.setText("");
-                    txt.grabFocus();
-                    refresh();
-                } else {
-                    txt.grabFocus();
-                }
+                eventSend(txt);
             }
         });
-        
+
         JButton cmdMore = new JButton();
         cmdMore.setBorder(null);
         cmdMore.setContentAreaFilled(false);
@@ -106,14 +100,28 @@ public class ChatBottom extends javax.swing.JPanel {
         add(panelMore, "dock south,h 0!"); // set height 0
     }
 
+    private void eventSend(JIMSendTextPane txt) {
+        String text = txt.getText().trim();
+        if (!text.equals("")) {
+            ModelSendMessage message = new ModelSendMessage(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
+            send(message);
+            PublicEvent.getInstance().getEventChat().sendMessage(message);
+            txt.setText("");
+            txt.grabFocus();
+            refresh();
+        } else {
+            txt.grabFocus();
+        }
+    }
+
     private void send(ModelSendMessage data) {
         Service.getInstance().getClient().emit("send_to_user", data.toJSONObject());
     }
-    
+
     private void refresh() {
         revalidate();
     }
-    
+
     public ModelUserAccount getUser() {
         return user;
     }
@@ -121,7 +129,7 @@ public class ChatBottom extends javax.swing.JPanel {
     public void setUser(ModelUserAccount user) {
         this.user = user;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

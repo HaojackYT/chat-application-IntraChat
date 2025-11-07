@@ -32,6 +32,7 @@ public class ChatBody extends javax.swing.JPanel {
         revalidate();
     }
     
+    // Reciver send text/picture
     public void addItemLeft(String text, String user, String[] images) {
         ChatLeftProfile item = new ChatLeftProfile();
         item.setText(text);
@@ -43,6 +44,7 @@ public class ChatBody extends javax.swing.JPanel {
         body.revalidate();
     }
     
+    // Reciver send file
     public void addItemFile(String text, String user, String fileName, String fileSize) {
         ChatLeftProfile item = new ChatLeftProfile();
         item.setText(text);
@@ -53,7 +55,8 @@ public class ChatBody extends javax.swing.JPanel {
         body.repaint();
         body.revalidate();
     }
-
+    
+    // Sender send text/picture
     public void addItemRight(ModelSendMessage data) {
         ChatRight item = new ChatRight();
         item.setText(data.getText());
@@ -64,6 +67,7 @@ public class ChatBody extends javax.swing.JPanel {
         scrollToBottom();
     }
     
+    // Receiver send file
     public void addItemFileRight(String text, String fileName, String fileSize) {
         ChatRight item = new ChatRight();
         item.setText(text);

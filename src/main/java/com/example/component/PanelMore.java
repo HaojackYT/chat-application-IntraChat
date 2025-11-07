@@ -1,8 +1,12 @@
 package com.example.component;
 
+import com.example.icon.Emogi;
+import com.example.icon.ModelEmoji;
 import com.example.main.Main;
+import com.example.swing.ScrollBar;
 import com.example.swing.WrapLayout;
-import java.awt.Image;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
@@ -10,8 +14,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 public class PanelMore extends javax.swing.JPanel {
@@ -35,7 +39,7 @@ public class PanelMore extends javax.swing.JPanel {
         JScrollPane scrollPane = new JScrollPane(panelDetail);
         scrollPane.setBorder(null);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBar(new JScrollBar());
+        scrollPane.setVerticalScrollBar(new ScrollBar());
         // Test Color
 //        panelDetail.setBackground(Color.yellow);
         add(scrollPane, "w 100%, h 100%");
@@ -58,14 +62,50 @@ public class PanelMore extends javax.swing.JPanel {
     private JButton getEmojiStyle1() {
         // Test
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/emoji/1.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)));
+        cmd.setIcon(Emogi.getInstance().getEmoji(1).toSize(25, 25).getIcon());
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearSelected();
+                cmd.setSelected(true);
+                panelDetail.removeAll();
+                for (ModelEmoji emoji : Emogi.getInstance().getStyle1()) {
+                    JButton button  = new JButton(emoji.getIcon());
+                    button.setName(emoji.getId() + "");
+                    button.setBorder(new EmptyBorder(3, 3, 3, 3));
+                    button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    button.setContentAreaFilled(false);
+                    panelDetail.add(button);
+                }
+                panelDetail.repaint();
+                panelDetail.revalidate();
+            }
+        });
         return cmd;
     }
     
      private JButton getEmojiStyle2() {
         // Test
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/emoji/40.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)));
+        cmd.setIcon(Emogi.getInstance().getEmoji(21).toSize(25, 25).getIcon());
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearSelected();
+                cmd.setSelected(true);
+                panelDetail.removeAll();
+                for (ModelEmoji emoji : Emogi.getInstance().getStyle2()) {
+                    JButton button  = new JButton(emoji.getIcon());
+                    button.setName(emoji.getId() + "");
+                    button.setBorder(new EmptyBorder(3, 3, 3, 3));
+                    button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    button.setContentAreaFilled(false);
+                    panelDetail.add(button);
+                }
+                panelDetail.repaint();
+                panelDetail.revalidate();
+            }
+        });
         return cmd;
     }
     
@@ -89,7 +129,15 @@ public class PanelMore extends javax.swing.JPanel {
             .addGap(0, 84, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void clearSelected() {
+        for (Component component : panelHeader.getComponents()) {
+            if (component instanceof OptionButton) {
+                ((OptionButton) component).setSelected(false);
+            }
+        }
+    }
+    
     private JPanel panelHeader;
     private JPanel panelDetail;
 
