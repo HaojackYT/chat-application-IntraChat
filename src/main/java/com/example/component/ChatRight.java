@@ -32,10 +32,16 @@ public class ChatRight extends javax.swing.JLayeredPane {
         txt.setFile(fileName, fileSize);
     }
     
+    public void setEmoji(Icon icon) {
+        txt.hideText();
+        txt.setEmoji(true, icon);
+    }
+    
     public void setTime() {
         // Test data:
         txt.setTime("10:30 PM");
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.

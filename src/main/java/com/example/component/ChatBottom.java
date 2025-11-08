@@ -1,5 +1,6 @@
 package com.example.component;
 
+import com.example.app.MessageType;
 import com.example.event.PublicEvent;
 import com.example.model.ModelSendMessage;
 import com.example.model.ModelUserAccount;
@@ -8,7 +9,7 @@ import com.example.swing.JIMSendTextPane;
 import com.example.swing.ScrollBar;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
+import java.awt.Dimension;                                                                      
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -103,7 +104,7 @@ public class ChatBottom extends javax.swing.JPanel {
     private void eventSend(JIMSendTextPane txt) {
         String text = txt.getText().trim();
         if (!text.equals("")) {
-            ModelSendMessage message = new ModelSendMessage(Service.getInstance().getUser().getUserID(), user.getUserID(), text);
+            ModelSendMessage message = new ModelSendMessage(MessageType.TEXT, Service.getInstance().getUser().getUserID(), user.getUserID(), text);
             send(message);
             PublicEvent.getInstance().getEventChat().sendMessage(message);
             txt.setText("");
@@ -128,6 +129,7 @@ public class ChatBottom extends javax.swing.JPanel {
 
     public void setUser(ModelUserAccount user) {
         this.user = user;
+        panelMore.setUser(user);
     }
 
     /**

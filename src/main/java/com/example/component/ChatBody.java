@@ -1,5 +1,7 @@
 package com.example.component;
 
+import com.example.app.MessageType;
+import com.example.icon.Emoji;
 import com.example.model.ModelReceiveMessage;
 import com.example.model.ModelSendMessage;
 import com.example.swing.ScrollBar;
@@ -24,10 +26,17 @@ public class ChatBody extends javax.swing.JPanel {
     }
 
     public void addItemLeft(ModelReceiveMessage data) {
-        ChatLeft item = new ChatLeft();
-        item.setText(data.getText());
-        item.setTime();
-        body.add(item, "wrap, w 100::80%");
+        if (data.getMessageType() == MessageType.TEXT) {
+            ChatLeft item = new ChatLeft();
+            item.setText(data.getText());
+            item.setTime();
+            body.add(item, "wrap, w 100::80%");
+        } else if (data.getMessageType() == MessageType.EMOJI) {
+            ChatLeft item = new ChatLeft();
+            item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
+            item.setTime();
+            body.add(item, "wrap, w 100::80%");
+        }
         repaint();
         revalidate();
     }
@@ -58,12 +67,19 @@ public class ChatBody extends javax.swing.JPanel {
     
     // Sender send text/picture
     public void addItemRight(ModelSendMessage data) {
-        ChatRight item = new ChatRight();
-        item.setText(data.getText());
-        body.add(item, "wrap, al right, w 100::80%");
+        if (data.getMessageType() == MessageType.TEXT) {
+            ChatRight item = new ChatRight();
+            item.setText(data.getText());
+            body.add(item, "wrap, al right, w 100::80%");
+            item.setTime();
+        } else if (data.getMessageType() == MessageType.EMOJI) {
+            ChatRight item = new ChatRight();
+            item.setEmoji(Emoji.getInstance().getEmoji(Integer.valueOf(data.getText())).getIcon());
+            body.add(item, "wrap, al right, w 100::80%");
+            item.setTime();
+        }
         repaint();
         revalidate();
-        item.setTime();
         scrollToBottom();
     }
     

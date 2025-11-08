@@ -1,8 +1,13 @@
 package com.example.component;
 
-import com.example.icon.Emogi;
+import com.example.app.MessageType;
+import com.example.event.PublicEvent;
+import com.example.icon.Emoji;
 import com.example.icon.ModelEmoji;
 import com.example.main.Main;
+import com.example.model.ModelSendMessage;
+import com.example.model.ModelUserAccount;
+import com.example.service.Service;
 import com.example.swing.ScrollBar;
 import com.example.swing.WrapLayout;
 import java.awt.Component;
@@ -19,7 +24,9 @@ import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 public class PanelMore extends javax.swing.JPanel {
-
+    
+    private ModelUserAccount user;
+    
     public PanelMore() {
         initComponents();
         init();
@@ -62,20 +69,15 @@ public class PanelMore extends javax.swing.JPanel {
     private JButton getEmojiStyle1() {
         // Test
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(Emogi.getInstance().getEmoji(1).toSize(25, 25).getIcon());
+        cmd.setIcon(Emoji.getInstance().getEmoji(1).toSize(25, 25).getIcon());
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 clearSelected();
                 cmd.setSelected(true);
                 panelDetail.removeAll();
-                for (ModelEmoji emoji : Emogi.getInstance().getStyle1()) {
-                    JButton button  = new JButton(emoji.getIcon());
-                    button.setName(emoji.getId() + "");
-                    button.setBorder(new EmptyBorder(3, 3, 3, 3));
-                    button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    button.setContentAreaFilled(false);
-                    panelDetail.add(button);
+                for (ModelEmoji emoji : Emoji.getInstance().getStyle1()) {
+                    panelDetail.add(getButton(emoji));
                 }
                 panelDetail.repaint();
                 panelDetail.revalidate();
@@ -87,20 +89,15 @@ public class PanelMore extends javax.swing.JPanel {
      private JButton getEmojiStyle2() {
         // Test
         OptionButton cmd = new OptionButton();
-        cmd.setIcon(Emogi.getInstance().getEmoji(21).toSize(25, 25).getIcon());
+        cmd.setIcon(Emoji.getInstance().getEmoji(21).toSize(25, 25).getIcon());
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 clearSelected();
                 cmd.setSelected(true);
                 panelDetail.removeAll();
-                for (ModelEmoji emoji : Emogi.getInstance().getStyle2()) {
-                    JButton button  = new JButton(emoji.getIcon());
-                    button.setName(emoji.getId() + "");
-                    button.setBorder(new EmptyBorder(3, 3, 3, 3));
-                    button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    button.setContentAreaFilled(false);
-                    panelDetail.add(button);
+                for (ModelEmoji emoji : Emoji.getInstance().getStyle2()) {
+                    panelDetail.add(getButton(emoji));
                 }
                 panelDetail.repaint();
                 panelDetail.revalidate();
@@ -108,7 +105,36 @@ public class PanelMore extends javax.swing.JPanel {
         });
         return cmd;
     }
+     
+    private JButton getButton(ModelEmoji data) {
+        JButton cmd  = new JButton(data.getIcon());
+        cmd.setName(data.getId() + "");
+        cmd.setBorder(new EmptyBorder(3, 3, 3, 3));
+        cmd.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cmd.setContentAreaFilled(false);
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ModelSendMessage message = new ModelSendMessage(MessageType.EMOJI, Service.getInstance().getUser().getUserID(), user.getUserID(), data.getId() + "");
+                sendMessage(message);
+                PublicEvent.getInstance().getEventChat().sendMessage(message);
+            }
+        });
+        return cmd;
+    }
     
+    private void sendMessage(ModelSendMessage data) {
+        Service.getInstance().getClient().emit("send_to_user", data.toJSONObject());
+    }
+
+    public ModelUserAccount getUser() {
+        return user;
+    }
+
+    public void setUser(ModelUserAccount user) {
+        this.user = user;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

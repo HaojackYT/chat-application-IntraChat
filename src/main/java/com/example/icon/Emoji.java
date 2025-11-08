@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 
-public class Emogi {
+public class Emoji {
     
-    private static Emogi instance;
+    private static Emoji instance;
     
-    private Emogi() { }
+    private Emoji() { }
     
-    public static Emogi getInstance() {
+    public static Emoji getInstance() {
         if (instance == null) {
-            instance = new Emogi();
+            instance = new Emoji();
         }
         return instance;
     }
