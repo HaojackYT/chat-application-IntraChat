@@ -1,6 +1,7 @@
 package com.example.component;
 
 import com.example.event.PublicEvent;
+import com.example.model.ModelFileSender;
 import com.example.swing.PictureBox;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -8,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 
@@ -18,14 +20,13 @@ public class ChatImage extends javax.swing.JLayeredPane {
         setLayout(new MigLayout("", "0[" + (right ? "right" : "left") + "]0", "3[]3"));
     }
 
-    public void addImage(Icon... images) {
-        for (Icon image : images) {
-            PictureBox pictureBox = new PictureBox();
-            pictureBox.setPreferredSize(getAutoSize(image, 200, 200));
-            pictureBox.setImage(image);
-            addEvent(pictureBox, image);
-            add(pictureBox, "wrap");
-        }
+    public void addImage(ModelFileSender fileSender) {
+        Icon image = new ImageIcon(fileSender.getFile().getAbsolutePath());
+        ImageItem picture = new ImageItem();
+        picture.setPreferredSize(getAutoSize(image, 200, 200));
+        picture.setImage(image, fileSender);
+        addEvent(picture, image);
+        add(picture, "wrap");
     }
     
     public void addImage(String... images) {

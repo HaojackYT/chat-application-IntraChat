@@ -10,6 +10,7 @@ public class ModelSendMessage {
     private int fromUserID;
     private int toUserID;
     private String text;
+    private ModelFileSender file;
 
     public ModelSendMessage() { }
 
@@ -26,7 +27,11 @@ public class ModelSendMessage {
             json.put("messageType", messageType.getValue());
             json.put("fromUserID", fromUserID);
             json.put("toUserID", toUserID);
-            json.put("text", text);
+            if (messageType == MessageType.FILE || messageType == MessageType.IMAGE) {
+                json.put("text", file.getFileExtensions());
+            } else {
+                json.put("text", text);
+            }
             return json;
         } catch (JSONException e) {
             return null;
@@ -65,4 +70,11 @@ public class ModelSendMessage {
         this.text = text;
     }
 
+    public ModelFileSender getFile() {
+        return file;
+    }
+
+    public void setFile(ModelFileSender file) {
+        this.file = file;
+    }
 }

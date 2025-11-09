@@ -14,6 +14,8 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,12 +23,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
 import net.miginfocom.swing.MigLayout;
 
 public class PanelMore extends javax.swing.JPanel {
-    
+
     private ModelUserAccount user;
-    
+
     public PanelMore() {
         initComponents();
         init();
@@ -36,11 +39,15 @@ public class PanelMore extends javax.swing.JPanel {
         setLayout(new MigLayout("fillx"));
         panelHeader = new JPanel();
         panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.LINE_AXIS));
+        
+        // Icon in "more.png"
+        panelHeader.add(getButtonImage());
         panelHeader.add(getButtonFile());
         panelHeader.add(getEmojiStyle1());
         panelHeader.add(getEmojiStyle2());
+        
         add(panelHeader, "w 100%, h 30!, wrap");
-                
+
         panelDetail = new JPanel();
         panelDetail.setLayout(new WrapLayout(WrapLayout.LEFT));
         JScrollPane scrollPane = new JScrollPane(panelDetail);
@@ -51,7 +58,44 @@ public class PanelMore extends javax.swing.JPanel {
 //        panelDetail.setBackground(Color.yellow);
         add(scrollPane, "w 100%, h 100%");
     }
-    
+
+    private JButton getButtonImage() {
+        OptionButton cmd = new OptionButton();
+        cmd.setIcon(new ImageIcon(getClass().getResource("/icon/image.png")));
+        cmd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setMultiSelectionEnabled(true);
+                fileChooser.setFileFilter(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return file.isDirectory() || isImageFile(file);
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "Image File";
+                    }
+                });
+                int option = fileChooser.showOpenDialog(Main.getFrames()[0]);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    File files[] = fileChooser.getSelectedFiles();
+                    try {
+                        for (File file : files) {
+                            ModelSendMessage message = new ModelSendMessage(MessageType.IMAGE, Service.getInstance().getUser().getUserID(), user.getUserID(), "");
+                            Service.getInstance().addFile(file, message);
+                            PublicEvent.getInstance().getEventChat().sendMessage(message);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        return cmd;
+    }
+
     private JButton getButtonFile() {
         OptionButton cmd = new OptionButton();
         cmd.setIcon(new ImageIcon(getClass().getResource("/icon/link.png")));
@@ -65,7 +109,7 @@ public class PanelMore extends javax.swing.JPanel {
         });
         return cmd;
     }
-    
+
     private JButton getEmojiStyle1() {
         // Test
         OptionButton cmd = new OptionButton();
@@ -85,8 +129,8 @@ public class PanelMore extends javax.swing.JPanel {
         });
         return cmd;
     }
-    
-     private JButton getEmojiStyle2() {
+
+    private JButton getEmojiStyle2() {
         // Test
         OptionButton cmd = new OptionButton();
         cmd.setIcon(Emoji.getInstance().getEmoji(21).toSize(25, 25).getIcon());
@@ -105,9 +149,9 @@ public class PanelMore extends javax.swing.JPanel {
         });
         return cmd;
     }
-     
+
     private JButton getButton(ModelEmoji data) {
-        JButton cmd  = new JButton(data.getIcon());
+        JButton cmd = new JButton(data.getIcon());
         cmd.setName(data.getId() + "");
         cmd.setBorder(new EmptyBorder(3, 3, 3, 3));
         cmd.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -122,7 +166,7 @@ public class PanelMore extends javax.swing.JPanel {
         });
         return cmd;
     }
-    
+
     private void sendMessage(ModelSendMessage data) {
         Service.getInstance().getClient().emit("send_to_user", data.toJSONObject());
     }
@@ -155,7 +199,7 @@ public class PanelMore extends javax.swing.JPanel {
             .addGap(0, 84, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void clearSelected() {
         for (Component component : panelHeader.getComponents()) {
             if (component instanceof OptionButton) {
@@ -164,6 +208,10 @@ public class PanelMore extends javax.swing.JPanel {
         }
     }
     
+    private boolean isImageFile(File file) {
+        String name = file.getName().toLowerCase();
+        return name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".jpeg") || name.endsWith(".gif");
+    }
     private JPanel panelHeader;
     private JPanel panelDetail;
 

@@ -29,7 +29,7 @@ public class ChatLeftProfile extends javax.swing.JLayeredPane {
     }
     
     public void setImage(Icon... images) {
-        txt.setImage(false, images);
+//        txt.setImage(false, images);
     }
     
     public void setImage(String... images) {

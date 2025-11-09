@@ -84,10 +84,10 @@ public class MenuLeft extends javax.swing.JPanel {
     }
 
     private void showMessage() {
-        // Test data:
+        // Show real users
         menuList.removeAll();
         for (ModelUserAccount user : userAccount) {
-            menuList.add(new ItemPeople(null), "wrap");
+            menuList.add(new ItemPeople(user), "wrap");
         }
         refeshMenuList();
     }
@@ -95,18 +95,20 @@ public class MenuLeft extends javax.swing.JPanel {
     private void showGroup() {
         // Test data:
         menuList.removeAll();
-        for (int i = 0; i < 5; i++) {
-            menuList.add(new ItemPeople(null), "wrap");
-        }
+//        for (int i = 0; i < 5; i++) {
+//            ModelUserAccount u = new ModelUserAccount(1000 + i, "Group " + (i + 1), "unknown", "/icon/user.png", false);
+//            menuList.add(new ItemPeople(u), "wrap");
+//        }
         refeshMenuList();
     }
 
     private void showBox() {
         // Test data:
         menuList.removeAll();
-        for (int i = 0; i < 10; i++) {
-            menuList.add(new ItemPeople(null), "wrap");
-        }
+//        for (int i = 0; i < 10; i++) {
+//            ModelUserAccount u = new ModelUserAccount(2000 + i, "Box " + (i + 1), "unknown", "/icon/user.png", false);
+//            menuList.add(new ItemPeople(u), "wrap");
+//        }
         refeshMenuList();
     }
 
