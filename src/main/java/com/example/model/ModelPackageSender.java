@@ -6,10 +6,10 @@ import org.json.JSONObject;
 public class ModelPackageSender {
     
     int fileID;
-    byte[] data;
+    String data;
     boolean finish;
 
-    public ModelPackageSender(int fileID, byte[] data, boolean finish) {
+    public ModelPackageSender(int fileID, String data, boolean finish) {
         this.fileID = fileID;
         this.data = data;
         this.finish = finish;
@@ -37,11 +37,11 @@ public class ModelPackageSender {
         this.fileID = fileID;
     }
 
-    public byte[] getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
+    public void setData(String data) {
         this.data = data;
     }
 

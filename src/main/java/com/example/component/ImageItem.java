@@ -1,6 +1,8 @@
 package com.example.component;
 
+import com.example.event.EventFileSender;
 import com.example.model.ModelFileSender;
+import com.example.model.ModelReceiveImage;
 import com.example.swing.blurHash.BlurHash;
 import java.awt.image.BufferedImage;
 import javax.swing.Icon;
@@ -13,13 +15,29 @@ public class ImageItem extends javax.swing.JLayeredPane {
     }
     
     public void setImage(Icon image, ModelFileSender fileSender) {
+        fileSender.addEventFileSender(new EventFileSender() {
+            @Override
+            public void onSending(double percentage) {
+                progress.setValue((int) percentage);
+            }
+
+            @Override
+            public void onStartSending() {
+                
+            }
+
+            @Override
+            public void onFinish() {
+                progress.setVisible(false);
+            }
+        });
         pictureBox.setImage(image);
     }
     
-    public void setImage(String image) {
-        int width = 200;
-        int height = 200;
-        int[] data = BlurHash.decode(image, width, height, 1);
+    public void setImage(ModelReceiveImage dataImage) {
+        int width = dataImage.getWidth();
+        int height = dataImage.getHeight();
+        int[] data = BlurHash.decode(dataImage.getImage(), width, height, 1);
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         img.setRGB(0, 0, width, height, data, 0, width);
         Icon icon = new ImageIcon(img);
@@ -36,12 +54,12 @@ public class ImageItem extends javax.swing.JLayeredPane {
     private void initComponents() {
 
         pictureBox = new com.example.swing.PictureBox();
-        progress1 = new com.example.swing.Progress();
+        progress = new com.example.swing.Progress();
 
-        progress1.setForeground(new java.awt.Color(255, 255, 255));
-        progress1.setProgressType(com.example.swing.Progress.ProgressType.CANCLE);
+        progress.setForeground(new java.awt.Color(255, 255, 255));
+        progress.setProgressType(com.example.swing.Progress.ProgressType.CANCLE);
 
-        pictureBox.setLayer(progress1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pictureBox.setLayer(progress, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pictureBoxLayout = new javax.swing.GroupLayout(pictureBox);
         pictureBox.setLayout(pictureBoxLayout);
@@ -49,14 +67,14 @@ public class ImageItem extends javax.swing.JLayeredPane {
             pictureBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pictureBoxLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(progress1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(progress, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         pictureBoxLayout.setVerticalGroup(
             pictureBoxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pictureBoxLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(progress1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(progress, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -79,6 +97,6 @@ public class ImageItem extends javax.swing.JLayeredPane {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.example.swing.PictureBox pictureBox;
-    private com.example.swing.Progress progress1;
+    private com.example.swing.Progress progress;
     // End of variables declaration//GEN-END:variables
 }

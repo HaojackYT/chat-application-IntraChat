@@ -1,8 +1,10 @@
 package com.example.model;
 
+import com.example.event.EventFileSender;
 import com.example.service.Service;
 import io.socket.client.Ack;
 import io.socket.client.Socket;
+import java.util.Base64;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -16,6 +18,7 @@ public class ModelFileSender {
     private ModelSendMessage message;
     private String fileExtensions;
     private long fileSize;
+    private EventFileSender eventFileSender;
 
     public ModelFileSender(File file, Socket socket, ModelSendMessage message) throws IOException {
         accessFile = new RandomAccessFile(file, "r");
@@ -52,7 +55,6 @@ public class ModelFileSender {
     }
 
     public void initSend() throws IOException {
-        System.out.println("Init file to server and wait for server respond back");
         socket.emit("send_to_user", message.toJSONObject(), new Ack() {
             @Override
             public void call(Object... args) {
@@ -68,8 +70,11 @@ public class ModelFileSender {
         });
     }
 
-    public void startSend(int FileID) throws IOException {
+    public void startSend(int fileID) throws IOException {
         this.fileID = fileID;
+        if (eventFileSender != null) {
+            eventFileSender.onStartSending();
+        }
         sendingFile();
     }
 
@@ -78,7 +83,8 @@ public class ModelFileSender {
         data.setFileID(fileID);
         byte[] bytes = readFile();
         if (bytes != null) {
-            data.setData(bytes);
+            // Encode binary chunk to Base64 string to safely transport in JSON
+            data.setData(Base64.getEncoder().encodeToString(bytes));
             data.setFinish(false);
         } else {
             data.setFinish(true);
@@ -92,10 +98,16 @@ public class ModelFileSender {
                     if (act) {
                         try {
                             if (!data.isFinish()) {
+                                if (eventFileSender != null) {
+                                    eventFileSender.onSending(getPercentage());
+                                }
                                 sendingFile();
                             } else {
                                 // File send finish
                                 Service.getInstance().fileSendFinish(ModelFileSender.this);
+                                if (eventFileSender != null) {
+                                    eventFileSender.onFinish();
+                                }
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -115,6 +127,10 @@ public class ModelFileSender {
 
     public void close() throws IOException {
         accessFile.close();
+    }
+
+    public void addEventFileSender(EventFileSender eventFileSender) {
+        this.eventFileSender = eventFileSender;
     }
 
     public ModelSendMessage getMessage() {

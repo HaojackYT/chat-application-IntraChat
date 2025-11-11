@@ -26,7 +26,7 @@ public class ChatRight extends javax.swing.JLayeredPane {
     }
     
     public void setImage(String... images) {
-        txt.setImage(false, images);
+//        txt.setImage(false, images);
     }
     
     public void setFile(String fileName, String fileSize) {
