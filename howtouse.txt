@@ -1,0 +1,9 @@
+
+Bước 1. Mở PowerShell (không cần Administrator) và chạy lệnh này (không dùng dấu \ nhé):
+docker run -d --name ollama -p 11434:11434 -v ollama:/root/.ollama ollama/ollama:late
+
+Bước 2. Tải model chatbot (ví dụ llama3.1:8b)
+docker exec -it ollama ollama pull llama3.1:8b
+
+Bước 3. Kiểm tra model đã tải thành công chưa:
+docker exec -it ollama ollama list
