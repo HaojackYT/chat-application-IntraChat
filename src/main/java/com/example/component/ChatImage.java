@@ -34,7 +34,7 @@ public class ChatImage extends javax.swing.JLayeredPane {
         ImageItem pictureBox = new ImageItem();
         pictureBox.setPreferredSize(new Dimension(dataImage.getWidth(), dataImage.getHeight()));
         pictureBox.setImage(dataImage);
-//      addEvent(pictureBox, image);
+        // Note: Event for viewing image can be added after image is loaded
         add(pictureBox, "wrap");
     }
 

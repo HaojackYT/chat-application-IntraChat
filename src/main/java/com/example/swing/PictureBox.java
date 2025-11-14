@@ -21,6 +21,7 @@ public class PictureBox extends JLayeredPane {
 
     public void setImage(Icon image) {
         this.image = image;
+        repaint();
     }
     
     @Override

@@ -23,7 +23,8 @@ public class ModelReceiveMessage {
     public ModelReceiveMessage(Object json) {
         JSONObject obj = (JSONObject) json;
         try {
-            messageType = messageType.toMessageType(obj.getInt("messageType"));
+            // Use the enum type's static converter to avoid invoking on a null instance
+            messageType = MessageType.toMessageType(obj.getInt("messageType"));
             fromUserID = obj.getInt("fromUserID");
             text = obj.getString("text");
             if (!obj.isNull("dataImage")) {

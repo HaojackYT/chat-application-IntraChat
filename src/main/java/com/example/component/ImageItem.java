@@ -1,10 +1,14 @@
 package com.example.component;
 
+import com.example.event.EventFileReceiver;
 import com.example.event.EventFileSender;
 import com.example.model.ModelFileSender;
 import com.example.model.ModelReceiveImage;
+import com.example.service.Service;
 import com.example.swing.blurHash.BlurHash;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -35,6 +39,7 @@ public class ImageItem extends javax.swing.JLayeredPane {
     }
     
     public void setImage(ModelReceiveImage dataImage) {
+        System.out.println("[ImageItem] Setting image with FileID: " + dataImage.getFileID() + ", Width: " + dataImage.getWidth() + ", Height: " + dataImage.getHeight());
         int width = dataImage.getWidth();
         int height = dataImage.getHeight();
         int[] data = BlurHash.decode(dataImage.getImage(), width, height, 1);
@@ -42,6 +47,81 @@ public class ImageItem extends javax.swing.JLayeredPane {
         img.setRGB(0, 0, width, height, data, 0, width);
         Icon icon = new ImageIcon(img);
         pictureBox.setImage(icon);
+        System.out.println("[ImageItem] BlurHash displayed, starting file download for FileID: " + dataImage.getFileID());
+        try {
+            Service.getInstance().addFileReceiver(dataImage.getFileID(), new EventFileReceiver() {
+                @Override
+                public void onReceiving(double percentage) {
+                    progress.setValue((int) percentage);
+                    if (percentage % 25 == 0) { // Log every 25%
+                        System.out.println("[ImageItem] Download progress: " + (int)percentage + "%");
+                    }
+                }
+
+                @Override
+                public void onStartReceiving() {
+                    System.out.println("[ImageItem] Started receiving file for FileID: " + dataImage.getFileID());
+                }
+
+                @Override
+                public void onFinish(File file) {
+                    try {
+                        System.out.println("[ImageItem] File download finished: " + file.getAbsolutePath());
+                        progress.setVisible(false);
+                        
+                        // Verify file exists and has content
+                        if (!file.exists()) {
+                            System.err.println("[ImageItem] ERROR: File does not exist: " + file.getAbsolutePath());
+                            return;
+                        }
+                        if (file.length() == 0) {
+                            System.err.println("[ImageItem] ERROR: File is empty: " + file.getAbsolutePath());
+                            return;
+                        }
+                        
+                        System.out.println("[ImageItem] File verified, size: " + file.length() + " bytes, loading image...");
+                        
+                        // Add small delay to ensure file is fully written
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                            Thread.currentThread().interrupt();
+                        }
+                        
+                        // Read the image from file and create ImageIcon
+                        BufferedImage loadedImage = javax.imageio.ImageIO.read(file);
+                        if (loadedImage != null) {
+                            System.out.println("[ImageItem] Image loaded successfully: " + loadedImage.getWidth() + "x" + loadedImage.getHeight());
+                            ImageIcon imageIcon = new ImageIcon(loadedImage);
+                            pictureBox.setImage(imageIcon);
+                            pictureBox.repaint();
+                            pictureBox.revalidate();
+                            System.out.println("[ImageItem] Image displayed successfully!");
+                        } else {
+                            System.err.println("[ImageItem] ERROR: Failed to load image from: " + file.getAbsolutePath());
+                            System.err.println("[ImageItem] This usually means the file is corrupted or not a valid image format");
+                            
+                            // Try to get more info about the file
+                            try {
+                                java.io.FileInputStream fis = new java.io.FileInputStream(file);
+                                byte[] header = new byte[10];
+                                int read = fis.read(header);
+                                fis.close();
+                                System.err.println("[ImageItem] File header (first " + read + " bytes): " + java.util.Arrays.toString(header));
+                            } catch (Exception ex) {
+                                System.err.println("[ImageItem] Could not read file header: " + ex.getMessage());
+                            }
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        System.err.println("[ImageItem] ERROR: Exception loading image file: " + file.getAbsolutePath());
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("[ImageItem] ERROR: Exception adding file receiver");
+        }
     }
     
     /**

@@ -1,15 +1,14 @@
 package com.example.model;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+ 
 
 public class ModelPackageSender {
     
     int fileID;
-    String data;
+    byte[] data;
     boolean finish;
 
-    public ModelPackageSender(int fileID, String data, boolean finish) {
+    public ModelPackageSender(int fileID, byte[] data, boolean finish) {
         this.fileID = fileID;
         this.data = data;
         this.finish = finish;
@@ -17,14 +16,14 @@ public class ModelPackageSender {
 
     public ModelPackageSender() { }
     
-    public JSONObject toJSONPObject() {
+    public org.json.JSONObject toJSONPObject() {
         try {
-            JSONObject json = new JSONObject();
+            org.json.JSONObject json = new org.json.JSONObject();
             json.put("fileID", fileID);
             json.put("data", data);
             json.put("finish", finish);
             return json;
-        } catch(JSONException e) {
+        } catch(org.json.JSONException e) {
             return null;
         }
     }
@@ -37,11 +36,11 @@ public class ModelPackageSender {
         this.fileID = fileID;
     }
 
-    public String getData() {
+    public byte[] getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(byte[] data) {
         this.data = data;
     }
 

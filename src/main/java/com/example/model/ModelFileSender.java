@@ -4,7 +4,6 @@ import com.example.event.EventFileSender;
 import com.example.service.Service;
 import io.socket.client.Ack;
 import io.socket.client.Socket;
-import java.util.Base64;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -83,8 +82,8 @@ public class ModelFileSender {
         data.setFileID(fileID);
         byte[] bytes = readFile();
         if (bytes != null) {
-            // Encode binary chunk to Base64 string to safely transport in JSON
-            data.setData(Base64.getEncoder().encodeToString(bytes));
+            // Send binary chunk as byte[] so socket.io can transport as binary
+            data.setData(bytes);
             data.setFinish(false);
         } else {
             data.setFinish(true);
