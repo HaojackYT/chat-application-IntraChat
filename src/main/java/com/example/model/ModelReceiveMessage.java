@@ -17,6 +17,14 @@ public class ModelReceiveMessage {
         this.text = text;
     }
 
+    public ModelReceiveMessage(MessageType messageType, int fromUserID, String text, ModelReceiveImage dataImage) {
+        this.messageType = messageType;
+        this.fromUserID = fromUserID;
+        this.text = text;
+        this.dataImage = dataImage;
+    }
+
+
     public ModelReceiveMessage() {
     }
 
